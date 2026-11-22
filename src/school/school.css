@@ -1,0 +1,87 @@
+/* Baro Af-Soomaali — dugsiga (school) styles. Warm, readable, keyboard-friendly. */
+.sc-app { font-family: 'DM Sans', sans-serif; color: #283d37; background: #fbfaf6; min-height: 100vh; }
+.sc-shell { display: flex; min-height: 100vh; }
+.sc-side { width: 240px; flex-shrink: 0; background: #fff7ea; border-right: 2px solid #f0e3cd; padding: 18px 14px; display: flex; flex-direction: column; gap: 8px; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.sc-brand { display: flex; align-items: center; gap: 8px; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 19px; color: #283d37; margin-bottom: 10px; }
+.sc-brand small { display: block; font-size: 10px; letter-spacing: 1.5px; color: #b0793c; font-weight: 700; }
+.sc-nav { display: flex; flex-direction: column; gap: 4px; }
+.sc-nav button { display: flex; align-items: center; gap: 9px; border: 0; background: transparent; padding: 10px 12px; border-radius: 12px; font-size: 14.5px; font-family: inherit; color: #283d37; cursor: pointer; text-align: left; width: 100%; }
+.sc-nav button:hover { background: #f7ecd9; }
+.sc-nav button.active { background: #f6b93b; color: #283d37; font-weight: 700; }
+.sc-nav .sc-count { margin-left: auto; background: rgba(255,255,255,.65); border-radius: 999px; padding: 1px 9px; font-size: 12px; font-weight: 700; }
+.sc-main { flex: 1; padding: 26px 30px 60px; max-width: 1060px; }
+.sc-eyebrow { font-size: 11px; letter-spacing: 2px; font-weight: 700; color: #b0793c; text-transform: uppercase; margin: 0 0 6px; }
+.sc-h1 { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 30px; margin: 0 0 8px; }
+.sc-h2 { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; margin: 22px 0 10px; }
+.sc-h3 { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 17px; margin: 14px 0 8px; }
+.sc-lead { color: #586b62; font-size: 15.5px; line-height: 1.55; max-width: 62ch; }
+.sc-card { background: #fff; border: 2px solid #efe3cf; border-radius: 18px; padding: 18px 20px; margin: 12px 0; box-shadow: 0 2px 0 rgba(176,121,60,.08); }
+.sc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: 14px; }
+.sc-grid-wide { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: 14px; }
+.sc-btn { border: 0; border-radius: 999px; padding: 11px 22px; font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer; background: #f6b93b; color: #283d37; display: inline-flex; align-items: center; gap: 8px; }
+.sc-btn:hover { filter: brightness(1.05); }
+.sc-btn:disabled { opacity: .45; cursor: not-allowed; }
+.sc-btn.secondary { background: #fff; border: 2px solid #e4cfae; }
+.sc-btn.ghost { background: transparent; color: #b0793c; padding: 6px 10px; }
+.sc-btn.small { padding: 7px 14px; font-size: 13.5px; }
+.sc-pill { display: inline-flex; align-items: center; gap: 6px; background: #f4ead8; color: #8a5c22; border-radius: 999px; padding: 4px 12px; font-size: 12.5px; font-weight: 700; }
+.sc-pill.green { background: #e2f0e4; color: #2f6b3c; }
+.sc-pill.blue { background: #e2ecf4; color: #2c5876; }
+.sc-pill.red { background: #f8e3dd; color: #96402c; }
+.sc-stage-card { border: 2px solid #efe3cf; border-radius: 18px; padding: 18px; background: #fff; cursor: pointer; text-align: left; font-family: inherit; display: flex; flex-direction: column; gap: 8px; }
+.sc-stage-card:hover { border-color: #f6b93b; }
+.sc-stage-card .sc-stage-emoji { font-size: 30px; }
+.sc-progress-track { height: 10px; background: #f1e7d5; border-radius: 999px; overflow: hidden; }
+.sc-progress-track > div { height: 100%; background: linear-gradient(90deg, #f6b93b, #f28c28); border-radius: 999px; }
+.sc-stepbar { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 20px; }
+.sc-stepbar button { border: 2px solid #ecdcc0; background: #fff; border-radius: 999px; padding: 7px 13px; font-size: 12.5px; font-weight: 700; font-family: inherit; cursor: pointer; color: #6b5636; display: inline-flex; gap: 6px; align-items: center; }
+.sc-stepbar button.done { background: #e7f2e5; border-color: #b9d8b4; color: #2f6b3c; }
+.sc-stepbar button.active { background: #f6b93b; border-color: #f6b93b; color: #283d37; }
+.sc-vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.sc-flashcard { border: 2px solid #ecdcc0; border-radius: 14px; padding: 14px; background: #fffdf8; cursor: pointer; text-align: center; min-height: 96px; font-family: inherit; font-size: 15px; }
+.sc-flashcard .sc-flash-emoji { font-size: 26px; display: block; margin-bottom: 6px; }
+.sc-flashcard .sc-flash-back { color: #8a5c22; font-size: 13.5px; }
+.sc-chip { display: inline-flex; align-items: center; gap: 6px; border: 2px solid #ecdcc0; background: #fff; border-radius: 12px; padding: 8px 13px; font-size: 15px; font-family: inherit; cursor: pointer; }
+.sc-chip:hover { border-color: #f6b93b; }
+.sc-chip.selected { background: #f6b93b; border-color: #f28c28; font-weight: 700; }
+.sc-chip.correct { background: #e2f0e4; border-color: #8dc094; }
+.sc-chip.wrong { background: #f8e3dd; border-color: #d99c8c; }
+.sc-chip.disabled { opacity: .55; cursor: default; }
+.sc-feedback { border-radius: 12px; padding: 10px 14px; font-weight: 700; margin: 10px 0; }
+.sc-feedback.ok { background: #e7f2e5; color: #2f6b3c; }
+.sc-feedback.retry { background: #fdf1dc; color: #8a5c22; }
+.sc-note { font-size: 13px; color: #8a7a5e; line-height: 1.5; }
+.sc-dialogue-line { display: flex; gap: 10px; margin: 8px 0; align-items: baseline; }
+.sc-dialogue-line .who { font-weight: 800; color: #b0793c; min-width: 86px; }
+.sc-dialogue-line .so { font-size: 15.5px; }
+.sc-dialogue-line .en { color: #7d8b82; font-size: 13px; }
+.sc-passage { font-size: 16.5px; line-height: 1.8; white-space: pre-wrap; background: #fffdf8; border: 2px solid #ecdcc0; border-radius: 14px; padding: 18px; }
+.sc-glossary { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+.sc-question { border-top: 1.5px dashed #ecdcc0; padding: 12px 0; }
+.sc-options { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+.sc-tile-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; min-height: 44px; }
+.sc-sentence-slot { background: #fffdf8; border: 2px dashed #ecdcc0; border-radius: 12px; padding: 10px 12px; min-height: 44px; font-size: 16px; }
+.sc-input { font-family: inherit; font-size: 16px; padding: 10px 14px; border-radius: 12px; border: 2px solid #ecdcc0; width: 260px; }
+.sc-rubric { list-style: none; padding: 0; margin: 8px 0; }
+.sc-rubric li { padding: 7px 11px; border-radius: 10px; background: #f8f2e7; margin: 5px 0; font-size: 14px; }
+.sc-checklist label { display: flex; gap: 8px; align-items: center; padding: 6px 2px; font-size: 14.5px; }
+.sc-certificate { border: 3px double #c9a25c; border-radius: 18px; padding: 26px; background: #fffdf4; text-align: center; }
+.sc-certificate h2 { font-family: 'Nunito', sans-serif; font-size: 26px; color: #8a5c22; margin: 8px 0; }
+.sc-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.sc-table th, .sc-table td { text-align: left; padding: 8px 10px; border-bottom: 1.5px solid #f0e6d4; }
+.sc-audio-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+.sc-audio-msg { font-size: 12.5px; color: #a06b2f; }
+.sc-big-emoji { font-size: 46px; }
+.sc-pending { background: #fdf4e4; border: 1.5px dashed #d9b36c; border-radius: 12px; padding: 12px 16px; font-size: 13.5px; color: #8a5c22; }
+.sc-footer-note { margin-top: 40px; font-size: 12.5px; color: #9c8c6e; }
+.sc-back { background: transparent; border: 0; color: #b0793c; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; padding: 4px 0; }
+.sc-skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+.sc-skill-card { background: #fff; border: 2px solid #efe3cf; border-radius: 14px; padding: 14px; }
+.sc-skill-card strong { display: block; font-size: 20px; font-family: 'Nunito', sans-serif; }
+@media (max-width: 860px) {
+  .sc-shell { flex-direction: column; }
+  .sc-side { width: 100%; height: auto; position: static; flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .sc-nav { flex-direction: row; flex-wrap: wrap; }
+  .sc-main { padding: 18px 16px 50px; }
+  .sc-h1 { font-size: 24px; }
+}

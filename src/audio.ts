@@ -2,7 +2,7 @@ import {letters, pairs} from './curriculum';
 
 export type RecordingStatus = 'NOT_RECORDED' | 'RECORDED' | 'AWAITING_REVIEW' | 'APPROVED' | 'REJECTED';
 export type AudioEntry = {
- id:string; contentId:string; text:string; path:string; kind:'sound'|'word'|'letter-name';
+ id:string; contentId:string; text:string; path:string; kind:'sound'|'word'|'letter-name'|'phrase'|'dialogue'|'paragraph';
  status:RecordingStatus; reviewStatus:RecordingStatus; pronunciationStatus:RecordingStatus;
  speaker:string; dialect:string; license:string; consent:string; recordedAt:string; reviewer:string; reviewedAt:string; reviewEvidence:string;
 };
