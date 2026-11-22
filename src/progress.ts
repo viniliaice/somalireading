@@ -6,7 +6,7 @@ export type Skill='vowel'|'digraph'|'reading'|'recognition'|'listening';
 export type Evidence={id:string;skill:Skill;attempts:number;correct:number;incorrect:number;latestCorrect:boolean;lastActivity:string};
 export type LessonProgress={evidence:Record<string,Evidence>};
 export type AssessmentResult={score:number;total:number;skipped:number;listeningAssessed:number;completedAt:string};
-export type Progress={lessons:Record<string,LessonProgress>; legacyCompleted:number[]; assessment?:AssessmentResult};
+export type Progress={lessons:Record<string,LessonProgress>; legacyCompleted:number[]; assessment?:AssessmentResult; cultural?:Record<string,CulturalProgress>};
 export const emptyProgress=():Progress=>({lessons:{},legacyCompleted:[]});
 export function loadProgress():Progress {try{const saved=localStorage.getItem(PROGRESS_KEY);if(saved){const p=JSON.parse(saved);if(p && p.lessons && typeof p.lessons==='object')return p;}const old=JSON.parse(localStorage.getItem('baro-progress-v1')||'{}');return {...emptyProgress(),legacyCompleted:Array.isArray(old.completed)?old.completed.filter((x:unknown)=>typeof x==='number'&&x>=1&&x<=8):[]};}catch{return emptyProgress();}}
 export function recordAttempt(progress:Progress,unit:number,id:string,skill:Skill,correct:boolean,now=new Date().toISOString()):Progress {
@@ -23,3 +23,12 @@ export function lessonSummary(progress:Progress,unit:number,threshold=MASTERY_TH
 export function skillSummary(progress:Progress,skill:Skill){const evidence=Object.values(progress.lessons).flatMap(l=>Object.values(l.evidence)).filter(e=>e.skill===skill);return {attempted:evidence.length,correct:evidence.filter(e=>e.latestCorrect).length};}
 
 export function soundRecognitionSummary(progress:Progress){const evidence=Object.values(progress.lessons).flatMap(l=>Object.values(l.evidence)).filter(e=>e.id.startsWith('listen-sound-')||e.id.startsWith('listen-hunt-'));return {attempted:evidence.length,correct:evidence.filter(e=>e.latestCorrect).length};}
+
+// Cultural enrichment has its own independently configurable mastery threshold.
+export const CULTURAL_MASTERY_THRESHOLD=0.8;
+// Cultural enrichment is stored alongside, but never inside, Stage 1 lesson evidence.
+export type CulturalProgress={completedLessons:number[];writing:string;topic:string;assessment?:{score:number;total:number;completedAt:string}};
+export function getCulturalProgress(progress:Progress,moduleId:string):CulturalProgress{return progress.cultural?.[moduleId]||{completedLessons:[],writing:'',topic:''};}
+export function updateCulturalProgress(progress:Progress,moduleId:string,update:Partial<CulturalProgress>):Progress{return {...progress,cultural:{...progress.cultural,[moduleId]:{...getCulturalProgress(progress,moduleId),...update}}};}
+export function completeCulturalLesson(progress:Progress,moduleId:string,lesson:number):Progress{const current=getCulturalProgress(progress,moduleId);return updateCulturalProgress(progress,moduleId,{completedLessons:Array.from(new Set([...current.completedLessons,lesson]))});}
+export function culturalMastered(progress:CulturalProgress,threshold=CULTURAL_MASTERY_THRESHOLD):boolean{return !!(progress.assessment&&progress.assessment.total>0&&progress.assessment.score/progress.assessment.total>=threshold);}
