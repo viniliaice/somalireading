@@ -1,0 +1,13 @@
+import {writeFileSync,mkdirSync} from 'node:fs';
+import {biography,hadraawi,lessonReadings,lessons,literaryTerms,questions,sourceLinks,timeline,values,works} from '../src/modules/hadraawi';
+const rows:unknown[][]=[['ID','Type','Somali text / title','English / supporting detail','Source URLs','Status','Suggested correction','Reviewer comments','Age suitability review','Reviewer','Review date','Evidence']];
+const add=(id:string,type:string,so:string,en:string,sources:(keyof typeof sourceLinks)[],status:string)=>rows.push([id,type,so,en,sources.map(s=>sourceLinks[s].url).join(' | '),status,'','','','','','']);
+add('identity','module',`${hadraawi.name} ${hadraawi.penName} (${hadraawi.years})`,`${hadraawi.nameVariants.join(' | ')}; ${hadraawi.titleVariants.join(' | ')}`,hadraawi.sources,hadraawi.review);
+for(const l of lessons)add(`lesson:${l.id}`,'lesson',`${l.title} — ${l.subtitle}`,'',l.sources,l.review);
+for(const p of biography)add(`biography:${p.id}`,'biography',p.so,p.en,p.sources,p.review);
+for(const list of Object.values(lessonReadings))for(const p of list)add(`reading:${p.id}`,'lesson reading',p.so,p.en,p.sources,p.review);
+for(const e of timeline)add(`timeline:${e.id}`,'timeline',`${e.year}: ${e.title}. ${e.detail}`,`${e.certainty}; ${e.older||''}`,e.sources,e.review);
+for(const w of works)add(`work:${w.id}`,'literary work',`${w.title}: ${w.category}. ${w.description}`,w.variant||'',w.sources,w.review);
+for(const [group,items] of [['literary',literaryTerms],['value',values]] as const)for(const v of items)add(`${group}:${v.word}`,'vocabulary',`${v.word}: ${v.meaning}`,v.english,v.sources,v.review);
+for(const q of questions)add(`question:${q.id}`,'assessment',`${q.prompt} | ${q.options.join(' / ')} | ${q.answer}`,q.explanation,q.sources,q.review);
+const csv=rows.map(row=>row.map(x=>'"'+String(x??'').replaceAll('"','""')+'"').join(',')).join('\n')+'\n';mkdirSync('teacher-review',{recursive:true});writeFileSync('teacher-review/hadraawi-review.csv',csv);console.log(`Generated ${rows.length-1} Hadraawi review entries.`);
