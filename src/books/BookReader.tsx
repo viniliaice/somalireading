@@ -107,10 +107,19 @@ export function BookReader({ book, progress, onBack, onProgress, onOpenBooks }: 
             <figure className="bk-figure">
               <BookImage src={page.image} alt={page.imageAltSo} />
               <figcaption className="bk-page-chip">Bogga {page.order} / 5</figcaption>
+              <button
+                type="button"
+                className="bk-audio-fab"
+                aria-label={narrationReady ? 'Dhegayso bogga' : 'Dhegayso bogga · cod la ansixiyey weli lama hayo'}
+                title={narrationReady ? 'Dhegayso bogga' : 'Dhegayso bogga — cod la ansixiyey weli lama hayo'}
+                onClick={() => setAudioNote(narrationReady ? 'Cod la ansixiyey ayaa la ciyaari lahaa.' : 'Cod la ansixiyey weli lama hayo. Ma isticmaalno TTS Ingiriisi — waa in duubis la ansixiyaa.')}
+              >
+                <Headphones size={18} />
+              </button>
             </figure>
             <div className={`bk-text-panel ${bigText ? 'big' : ''}`}>
               {page.sentencesSo.map((sentence, si) => (
-                <p key={si} style={{ margin: '0 0 10px' }}>
+                <p key={si} style={{ margin: '0 0 6px' }}>
                   <span
                     className={`bk-sentence ${hlSentence === si ? 'hl' : ''}`}
                     onClick={() => setHlSentence(si)}
@@ -132,14 +141,6 @@ export function BookReader({ book, progress, onBack, onProgress, onOpenBooks }: 
                   Jumlad xigta → ({hlSentence + 1}/{page.sentencesSo.length})
                 </button>
               )}
-              <button
-                className="bk-btn small"
-                style={{ marginTop: 6 }}
-                onClick={() => setAudioNote(narrationReady ? 'Cod la ansixiyey ayaa la ciyaari lahaa.' : 'Cod la ansixiyey weli lama hayo. Ma isticmaalno TTS Ingiriisi — waa in duubis la ansixiyaa.')}
-              >
-                <Headphones size={14} /> Dhegayso bogga
-                {!narrationReady && <span style={{ fontWeight: 600, fontSize: 11.5 }}> · cod la ansixiyey weli lama hayo</span>}
-              </button>
               {audioNote && <p className="bk-translation" role="status">{audioNote}</p>}
               {translation && <p className="bk-translation" lang="en">{page.translationEn}</p>}
             </div>

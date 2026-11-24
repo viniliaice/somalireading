@@ -148,20 +148,32 @@ test('reading pages fit the screen exactly — the body never scrolls', async ({
   // the story text itself fits without an inner scroll at phone and desktop sizes
   for (const [w, h] of [[390, 844], [1280, 800]] as const) {
     await page.setViewportSize({ width: w, height: h });
-    const panel = page.locator('.bk-text-panel');
-    await expect(panel).toBeVisible();
-    const innerFits = await panel.evaluate(el => el.scrollHeight <= el.clientHeight + 1);
-    expect(innerFits, `story text fits at ${w}x${h}`).toBe(true);
+    for (const label of ['Bogga 1 / 5', 'Bogga 3 / 5']) {
+      if (label === 'Bogga 3 / 5') {
+        await page.getByRole('button', { name: /^Xiga/ }).click();
+        await page.getByRole('button', { name: /^Xiga/ }).click();
+      }
+      await expect(page.getByText(label).first()).toBeVisible();
+      const panel = page.locator('.bk-text-panel');
+      await expect(panel).toBeVisible();
+      const innerFits = await panel.evaluate(el => el.scrollHeight <= el.clientHeight + 1);
+      expect(innerFits, `story text fits at ${w}x${h} on ${label}`).toBe(true);
+      if (label === 'Bogga 3 / 5') {
+        await page.getByRole('button', { name: /Hore/ }).click();
+        await page.getByRole('button', { name: /Hore/ }).click();
+      }
+    }
   }
-  // the illustration is uncropped: displayed ratio equals its natural ratio
+  // the illustration fills its container edge-to-edge — no letterbox bars
   for (const [w, h] of [[390, 844], [1280, 800]] as const) {
     await page.setViewportSize({ width: w, height: h });
-    const ratioOk = await page.locator('.bk-figure img').evaluate((el) => {
+    const fillOk = await page.locator('.bk-figure img').evaluate((el) => {
       const img = el as HTMLImageElement;
-      const rendered = img.clientWidth / img.clientHeight;
-      const natural = img.naturalWidth / img.naturalHeight;
-      return Math.abs(rendered - natural) < 0.02;
+      const fig = img.closest('.bk-figure') as HTMLElement;
+      return getComputedStyle(img).objectFit === 'cover'
+        && Math.abs(img.clientWidth - fig.clientWidth) <= 2
+        && Math.abs(img.clientHeight - fig.clientHeight) <= 2;
     });
-    expect(ratioOk, `illustration keeps its natural ratio at ${w}x${h}`).toBe(true);
+    expect(fillOk, `illustration fills its container at ${w}x${h}`).toBe(true);
   }
 });
