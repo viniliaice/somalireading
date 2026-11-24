@@ -115,3 +115,19 @@ test('phonics experience is preserved at #/xaraf and linked from the school', as
   await page.getByRole('link', { name: 'BARO AF-SOOMAALI' }).click();
   await expect(page.getByRole('heading', { name: 'Baro Af-Soomaali', exact: true })).toBeVisible();
 });
+
+test('lesson steps fit the screen — the body never scrolls', async ({ page }) => {
+  await page.getByRole('button', { name: /Heerka 0 — Maqal iyo Hadal/ }).click();
+  await page.getByRole('button', { name: /Salaanta/ }).first().click();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Salaanta');
+  for (const [w, h] of [[320, 568], [390, 844], [1280, 800]] as const) {
+    await page.setViewportSize({ width: w, height: h });
+    await page.waitForTimeout(150);
+    const fits = await page.evaluate(() => document.documentElement.scrollHeight <= window.innerHeight + 1);
+    expect(fits, `lesson body must not scroll at ${w}x${h}`).toBe(true);
+  }
+  // the next-step footer works and keeps the fit guarantee
+  await page.getByRole('button', { name: /Tallaabada xigta/ }).first().click();
+  const fits2 = await page.evaluate(() => document.documentElement.scrollHeight <= window.innerHeight + 1);
+  expect(fits2).toBe(true);
+});

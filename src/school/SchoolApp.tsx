@@ -124,12 +124,15 @@ export function SchoolApp() {
   }
 
   return (
-    <div className="sc-app">
+    <div className={route.name === 'lesson' ? 'sc-app fit' : 'sc-app'}>
       <div className="sc-shell">
         <aside className={`sc-side ${navOpen ? 'open' : ''}`}>
           <div className="sc-brand">
             <GraduationCap size={26} />
             <span>baro<span style={{ color: '#f28c28' }}>.</span><small>BARO AF-SOOMAALI · DUGSIGA</small></span>
+            <button type="button" className="sc-nav-toggle" onClick={() => setNavOpen(o => !o)} aria-label={navOpen ? 'Xir liiska' : 'Fur liiska'} aria-expanded={navOpen}>
+              {navOpen ? <X size={18} /> : <Menu size={18} />} Liiska
+            </button>
           </div>
           <nav className="sc-nav" aria-label="Liiska bogagga">
             <button className={route.name === 'home' ? 'active' : ''} onClick={() => navigate({ name: 'home' })}><Home size={18} /> Bogga hore</button>
@@ -146,10 +149,6 @@ export function SchoolApp() {
           </div>
         </aside>
         <main className="sc-main">
-          <button className="sc-btn secondary small" style={{ display: 'none' }} onClick={() => setNavOpen(!navOpen)} aria-label="Fur liiska">
-            {navOpen ? <X size={18} /> : <Menu size={18} />} Liiska
-          </button>
-
           {route.name === 'home' && (
             <HomePage
               progress={progress}

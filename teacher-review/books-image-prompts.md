@@ -15,7 +15,7 @@ characters. Generated 2026-11-24: 10/61 (this file lists the remaining 51).
 
 ## Locked character block (use verbatim for consistency)
 
-> Ayaan, a cheerful 7-year-old Somali boy with short black curly hair, white short-sleeved
+> Ayaanle, a cheerful 7-year-old Somali boy with short black curly hair, white short-sleeved
 > shirt and royal blue macawiis sarong · Cabdi, a same-age Somali boy with a red knitted kufi
 > cap, white shirt and grey macawiis · Hodan, a 9-year-old Somali girl wearing a **green hijab**
 > and a green dirac dress with gold trim · Ismaaciil, a toddler boy in a yellow t-shirt ·
@@ -67,12 +67,12 @@ her Ismaaciil playing with a small ball on a woven floor mat. Cozy room corner w
 mat and cushions. (Style block; add: NO readable book text.)
 
 ### book-02-qoyskeyga/page-04.jpg
-Grandfather sitting and telling a story with a raised hand gesture to Ayaan and Hodan (green hijab) seated
+Grandfather sitting and telling a story with a raised hand gesture to Ayaanle and Hodan (green hijab) seated
 on a woven mat, eyes wide with delight; grandmother smiling nearby with a clay pot.
 
 ### book-02-qoyskeyga/page-05.jpg
 The family sharing an evening meal around a large woven floor mat with simple plates and a
-teapot: Maryan serving food; Cabdiraxmaan; Ayaan; Hodan; Ismaaciil; grandfather; grandmother.
+teapot: Maryan serving food; Cabdiraxmaan; Ayaanle; Hodan; Ismaaciil; grandfather; grandmother.
 Warm lamplight, happy mood.
 
 ### book-03-gurigayga/cover.jpg
@@ -103,16 +103,16 @@ The house exterior at dusk: warm light glowing from the window (halftone glow), 
 evening sky, Hodan (green hijab) standing outside looking up at her home lovingly.
 
 ### book-04-dugsigayga/cover.jpg
-Ayaan holding a book and pen standing proudly in front of a whitewashed school with a large
+Ayaanle holding a book and pen standing proudly in front of a whitewashed school with a large
 wooden door; the teacher Faarax (glasses, beige vest over a shirt) greeting him warmly;
 morning sun as halftone rays.
 
 ### book-04-dugsigayga/page-01.jpg
-Ayaan in the morning, dressed and ready, holding a book and a pen, a simple breakfast table
+Ayaanle in the morning, dressed and ready, holding a book and a pen, a simple breakfast table
 with a plate and tea cup behind him, dotted morning light through a window.
 
 ### book-04-dugsigayga/page-02.jpg
-Ayaan greeting teacher Faarax (a friendly Somali man with glasses and a beige vest) at the
+Ayaanle greeting teacher Faarax (a friendly Somali man with glasses and a beige vest) at the
 classroom door, both smiling and raising hands in greeting; desks visible behind.
 
 ### book-04-dugsigayga/page-03.jpg
@@ -120,16 +120,16 @@ Inside the classroom: several Somali children at desks reading books and writing
 teacher Faarax standing at the front gesturing towards the class; a plain board with NO text.
 
 ### book-04-dugsigayga/page-04.jpg
-Children playing football in a sunny schoolyard: Ayaan kicking a ball, other children
+Children playing football in a sunny schoolyard: Ayaanle kicking a ball, other children
 cheering, running; school building behind.
 
 ### book-04-dugsigayga/page-05.jpg
-Ayaan at home telling Maryan about his day, gesturing happily; Maryan smiling warmly with a
+Ayaanle at home telling Maryan about his day, gesturing happily; Maryan smiling warmly with a
 hand on her chest, evening interior with dotted lamp light.
 
 ### book-05-suuqa/cover.jpg
 A busy Somali market street: stalls with piles of bananas, red apples and green vegetables;
-Maryan with Ayaan and Hodan looking at the produce, a friendly vendor Cali (striped shirt,
+Maryan with Ayaanle and Hodan looking at the produce, a friendly vendor Cali (striped shirt,
 kufi) behind his stall; bunting-free, no signs.
 
 ### book-05-suuqa/page-01.jpg
@@ -137,7 +137,7 @@ The family walking into a busy market: many people, stalls with goods, woven bas
 family in the foreground looking around with interest.
 
 ### book-05-suuqa/page-02.jpg
-A market stall close-up piled with green vegetables, bananas and red apples; Ayaan and Hodan
+A market stall close-up piled with green vegetables, bananas and red apples; Ayaanle and Hodan
 admiring the fruit, Maryan beside them.
 
 ### book-05-suuqa/page-03.jpg
@@ -149,11 +149,11 @@ The exchange: Maryan handing money to the vendor while he hands over a bag of ve
 bananas and a milk can; children watching happily.
 
 ### book-05-suuqa/page-05.jpg
-Back home: Ayaan placing a bag of vegetables on a wooden table, Maryan and Hodan unpacking,
+Back home: Ayaanle placing a bag of vegetables on a wooden table, Maryan and Hodan unpacking,
 warm interior, satisfied smiles.
 
 ### book-06-xayawaanka/cover.jpg
-A family (Ayaan, Hodan, Maryan, Cabdiraxmaan) at an animal park with a tall camel, a giraffe
+A family (Ayaanle, Hodan, Maryan, Cabdiraxmaan) at an animal park with a tall camel, a giraffe
 and a goat visible around them, acacia trees, dotted sky; wonder and delight.
 
 ### book-06-xayawaanka/page-01.jpg
@@ -161,7 +161,7 @@ The family entering an animal park: a fence opening, several animals (goats, a h
 background, children pointing excitedly.
 
 ### book-06-xayawaanka/page-02.jpg
-A tall camel eating grass and leaves, a smaller camel beside it; Ayaan and Hodan watching
+A tall camel eating grass and leaves, a smaller camel beside it; Ayaanle and Hodan watching
 from the side, dotted desert ground.
 
 ### book-06-xayawaanka/page-03.jpg
@@ -178,7 +178,7 @@ Cabdiraxmaan gesturing kindly while talking to the children, animals visible aro
 (pony-sized horse, goats); the children nodding with understanding and warmth.
 
 ### book-07-maalin-roobaad/cover.jpg
-A rainy scene: Ayaan and Hodan at a window with rounded corners looking out at falling rain,
+A rainy scene: Ayaanle and Hodan at a window with rounded corners looking out at falling rain,
 dark halftone clouds, a small plant outside bending in the wind; cosy warm interior.
 
 ### book-07-maalin-roobaad/page-01.jpg
@@ -250,7 +250,7 @@ The family returning home at night: dotted stars and moon, the vehicle's lights,
 tired but happy; the father patting Faaduma’s shoulder.
 
 ### book-10-nabad-iyo-wadajir/cover.jpg
-A group of diverse Somali children (Ayaan, Hodan, Asma, Maxamed, Cabdi, Cali) holding hands
+A group of diverse Somali children (Ayaanle, Hodan, Asma, Maxamed, Cabdi, Cali) holding hands
 under a big acacia tree, an elder smiling nearby; unity and peace mood, dotted sky.
 
 ### book-10-nabad-iyo-wadajir/page-01.jpg

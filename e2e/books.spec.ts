@@ -21,7 +21,7 @@ test('a book opens with story text, word help and page navigation', async ({ pag
   await expect.poll(() => documentHasText(page, 'Waa subax cusub.'), { timeout: 5000 }).toBe(true);
   await expect(page.getByText('Bogga 1 / 5').first()).toBeVisible();
   // tap a word → meaning panel with phonics-safe grapheme reference
-  await page.getByRole('button', { name: 'Erayga Ayaan', exact: true }).click();
+  await page.getByRole('button', { name: 'Erayga Ayaanle', exact: true }).click();
   await expect(page.getByRole('dialog', { name: 'Macluumaadka erayga' })).toBeVisible();
   await expect(page.getByText('Eray aasaasi ah')).toBeVisible();
   await page.getByRole('button', { name: 'Xir' }).click();
@@ -72,7 +72,7 @@ test('end-of-book assessment grades, saves and allows retry', async ({ page }) =
   for (const a of answers) await page.getByRole('button', { name: a, exact: true }).first().click();
   await page.getByRole('button', { name: /Dhammaystir tijaabada/ }).click();
   await expect(page.getByRole('status')).toContainText('/ 9');
-  await page.getByRole('textbox', { name: 'Jawaabta qoraalka' }).fill('Magacaygu waa Ayaan.');
+  await page.getByRole('textbox', { name: 'Jawaabta qoraalka' }).fill('Magacaygu waa Ayaanle.');
   await page.getByRole('button', { name: /Waan sameeyay/ }).click();
   await expect(page.getByText('Hawshu way diiwaangashan tahay.')).toBeVisible();
   await page.screenshot({ path: 'screenshots/books-quiz.png', fullPage: true });
@@ -134,4 +134,46 @@ test('library strip on the home page shows all covers and enters a book in one c
   await page.getByRole('button', { name: 'Bogga hore' }).click();
   await page.getByRole('button', { name: /Gal maktabadda/ }).click();
   await expect(page.getByRole('heading', { name: 'Toob buugaag ah oo Af-Soomaali ah' })).toBeVisible();
+});
+
+test('reading pages fit the screen exactly — the body never scrolls', async ({ page }) => {
+  await page.getByRole('button', { name: /Bilow akhriska/ }).first().click();
+  await expect(page.getByText('Bogga 1 / 5').first()).toBeVisible();
+  for (const [w, h] of [[320, 568], [390, 844], [768, 1024], [1280, 800]] as const) {
+    await page.setViewportSize({ width: w, height: h });
+    await page.waitForTimeout(150);
+    const fits = await page.evaluate(() => document.documentElement.scrollHeight <= window.innerHeight + 1);
+    expect(fits, `body must not scroll at ${w}x${h}`).toBe(true);
+  }
+  // the story text itself fits without an inner scroll at phone and desktop sizes
+  for (const [w, h] of [[390, 844], [1280, 800]] as const) {
+    await page.setViewportSize({ width: w, height: h });
+    for (const label of ['Bogga 1 / 5', 'Bogga 3 / 5']) {
+      if (label === 'Bogga 3 / 5') {
+        await page.getByRole('button', { name: /^Xiga/ }).click();
+        await page.getByRole('button', { name: /^Xiga/ }).click();
+      }
+      await expect(page.getByText(label).first()).toBeVisible();
+      const panel = page.locator('.bk-text-panel');
+      await expect(panel).toBeVisible();
+      const innerFits = await panel.evaluate(el => el.scrollHeight <= el.clientHeight + 1);
+      expect(innerFits, `story text fits at ${w}x${h} on ${label}`).toBe(true);
+      if (label === 'Bogga 3 / 5') {
+        await page.getByRole('button', { name: /Hore/ }).click();
+        await page.getByRole('button', { name: /Hore/ }).click();
+      }
+    }
+  }
+  // the illustration fills its container edge-to-edge — no letterbox bars
+  for (const [w, h] of [[390, 844], [1280, 800]] as const) {
+    await page.setViewportSize({ width: w, height: h });
+    const fillOk = await page.locator('.bk-figure img').evaluate((el) => {
+      const img = el as HTMLImageElement;
+      const fig = img.closest('.bk-figure') as HTMLElement;
+      return getComputedStyle(img).objectFit === 'cover'
+        && Math.abs(img.clientWidth - fig.clientWidth) <= 2
+        && Math.abs(img.clientHeight - fig.clientHeight) <= 2;
+    });
+    expect(fillOk, `illustration fills its container at ${w}x${h}`).toBe(true);
+  }
 });
