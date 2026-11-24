@@ -153,4 +153,15 @@ test('reading pages fit the screen exactly — the body never scrolls', async ({
     const innerFits = await panel.evaluate(el => el.scrollHeight <= el.clientHeight + 1);
     expect(innerFits, `story text fits at ${w}x${h}`).toBe(true);
   }
+  // the illustration is uncropped: displayed ratio equals its natural ratio
+  for (const [w, h] of [[390, 844], [1280, 800]] as const) {
+    await page.setViewportSize({ width: w, height: h });
+    const ratioOk = await page.locator('.bk-figure img').evaluate((el) => {
+      const img = el as HTMLImageElement;
+      const rendered = img.clientWidth / img.clientHeight;
+      const natural = img.naturalWidth / img.naturalHeight;
+      return Math.abs(rendered - natural) < 0.02;
+    });
+    expect(ratioOk, `illustration keeps its natural ratio at ${w}x${h}`).toBe(true);
+  }
 });

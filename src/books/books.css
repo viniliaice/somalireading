@@ -51,11 +51,12 @@
 .bk-reader-progress div { height: 100%; background: var(--bk-blue); transition: width .25s ease; }
 
 .bk-stage { flex: 1; display: flex; flex-direction: column; max-width: 1100px; width: 100%; margin: 0 auto; padding: 12px; gap: 10px; min-height: 0; }
-.bk-figure { position: relative; flex: 2 1 0; min-height: 0; border: 3px solid var(--bk-ink); border-radius: 14px; overflow: hidden; background: var(--bk-cream); box-shadow: 5px 5px 0 rgba(23, 20, 18, 0.85); }
-.bk-figure img, .bk-figure .bk-img-fallback { width: 100%; height: 100%; object-fit: cover; }
+.bk-figure { position: relative; flex: 0 1 58%; min-height: 0; display: flex; align-items: center; justify-content: center; border: 3px solid var(--bk-ink); border-radius: 14px; overflow: hidden; background: var(--bk-cream); box-shadow: 5px 5px 0 rgba(23, 20, 18, 0.85); }
+.bk-figure img, .bk-figure .bk-img-fallback { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+.bk-figure .bk-img-fallback { min-width: min(280px, 80%); min-height: 190px; }
 .bk-page-chip { position: absolute; top: 10px; right: 10px; background: var(--bk-ink); color: var(--bk-cream); border-radius: 999px; padding: 4px 12px; font-size: 12.5px; font-weight: 800; }
 
-.bk-text-panel { flex: 3 1 0; min-height: 0; overflow-y: auto; border: 3px solid var(--bk-ink); border-radius: 14px; background: #fff; padding: 13px 15px; font-size: clamp(14.5px, 2.1vh + 0.3vw, 20px); line-height: 1.7; }
+.bk-text-panel { flex: 1 1 0; min-height: 0; overflow-y: auto; border: 3px solid var(--bk-ink); border-radius: 14px; background: #fff; padding: 13px 15px; font-size: clamp(14.5px, 2.1vh + 0.3vw, 20px); line-height: 1.7; }
 .bk-sentence { display: inline; border-radius: 6px; padding: 2px 1px; }
 .bk-sentence.hl { background: #ffe9a8; box-shadow: 0 0 0 3px #ffe9a8; }
 .bk-word { border: 0; background: none; font: inherit; color: inherit; cursor: pointer; padding: 1px 2px; border-radius: 5px; text-decoration: underline dotted rgba(36, 86, 184, 0.55); text-underline-offset: 3px; }
