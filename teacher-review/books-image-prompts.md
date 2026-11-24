@@ -36,16 +36,18 @@ with uncovered hair is wrong.
 
 | Asset | File | State |
 | --- | --- | --- |
-| character reference sheet | teacher-review/books-character-reference-sheet.jpg | done |
+| character reference sheet | teacher-review/books-character-reference-sheet.jpg | done (v2, hijab) |
 | b01 cover + pages 1–5 | public/books/book-01-salaan-saaxiib/* | done (6) |
-| b02 cover + pages 1–5 | public/books/book-02-qoyskeyga/* | done (6) |
-| b03 cover + pages 1–5 | public/books/book-03-gurigayga/* | done (6) |
-| b04 cover | public/books/book-04-dugsigayga/cover.jpg | done (1) |
-| b04 pages 1–5 | public/books/book-04-dugsigayga/page-01..05.jpg | pending |
-| b05–b10 cover + pages 1–5 | public/books/book-0X-*/ | pending (36) |
+| b02 cover + pages 1–5 | public/books/book-02-qoyskeyga/* | done (6, p3–5 regenerated with hijab) |
+| b03 cover + pages 1–5 | public/books/book-03-gurigayga/* | done (6, all regenerated with hijab) |
+| b04 cover + pages 1–5 | public/books/book-04-dugsigayga/* | done (6) |
+| b05 cover + pages 1–4 | public/books/book-05-suuqa/cover.jpg, page-01..04.jpg | done (4) |
+| b05 page 5 | public/books/book-05-suuqa/page-05.jpg | pending |
+| b06–b10 cover + pages 1–5 | public/books/book-0X-*/ | pending (30) |
 
 Batch history: turn 1 = sheet + b01 (6) + b02 (3) = 10; turn 2 = b02 pages 3–5 + b03 (6) +
-b04 cover = 10. Remaining after turn 2: 41.
+b04 cover = 10; turn 3 = hijab corrections (sheet + 9 regenerations) = 10; turn 4 = b04
+pages 1–5 + b05 cover + pages 1–4 = 10. Remaining after turn 4: 31.
 
 ## Remaining prompts
 
