@@ -28,28 +28,23 @@ reference. Every page advances its story — no repeats, no placeholders, no pad
 lives in `src/books/content/book-01.ts` … `book-10.ts` (text never hard-coded in components).
 The required brief vocabulary appears in every book (enforced by `tests/books-content.test.ts`).
 
-## 3–4. Covers and illustrations (60 assets) — **partially generated**
+## 3–4. Covers and illustrations (60 assets) — **complete: 61/61 generated**
 
-| Assets | Required | Generated | Pending |
-| --- | --- | --- | --- |
-| Character reference sheet | 1 | 1 | 0 |
-| Book covers | 10 | 2 | 8 |
-| Page illustrations | 50 | 7 | 43 |
-| **Total** | **61** | **10** | **51** |
+| Assets | Required | Generated |
+| --- | --- | --- |
+| Character reference sheet | 1 | 1 |
+| Book covers | 10 | 10 |
+| Page illustrations | 50 | 50 |
+| **Total** | **61** | **61** |
 
-**Cause:** the platform image-generation tool enforces a hard limit of **10 images per user
-turn**. Ten assets were generated in this turn: the reference sheet, all of Book 1
-(cover + 5 pages), and Book 2's cover + pages 1–2. The remaining 51 are fully specified in
-`teacher-review/books-image-prompts.md` — locked style block, verbatim character descriptions
-and every scene prompt — and are generated in batches of 10 on subsequent turns ("continue").
-Until each asset exists, the reader shows an honest halftone fallback panel with the page's
-alt text ("Sawirka weli ma iman") — never a broken image and never fake art. The unit test
-`every referenced cover and page illustration exists on disk` stays **red** until the
-collection is complete (see §13).
-
-Generated assets are consistent: the same halftone print style (visible dot shading, ink
-outlines, cream paper, royal blue accent), the same character descriptions across pages, and
-no lettering inside any image — all Somali text is rendered by the application.
+All 61 assets generated over 8 batches (the platform image tool caps at 10 images per user
+turn; the full prompt history is preserved in `teacher-review/books-image-prompts.md`).
+Assets are consistent: the same halftone print style (visible dot shading, ink outlines,
+cream paper, royal blue accent), the same character designs across pages — **every girl wears
+a hijab** (Hodan green, Asma orange, Faaduma cream; women in hijab, elders in indho
+shareer/koofiyad) — and no lettering inside any image; all Somali text is rendered by the
+application. The unit test `every referenced cover and page illustration exists on disk` is
+green.
 
 ## 5–6. Screenshots
 
@@ -101,7 +96,7 @@ progress keys are untouched by book progress (`baro-books-v1`).
 | --- | --- | --- |
 | TypeScript | `npx tsc -b` | clean |
 | ESLint | `npm run lint` | clean |
-| Unit + component | `npm test` | **113 passed / 114** — the single failure is the honest asset-existence test (51 illustrations pending, §13) |
+| Unit + component | `npm test` | **114 passed / 114** (13 files) |
 | Browser | `npm run test:e2e` | **46 passed / 46** (17 app + 8 books + 12 Hadraawi + 9 school) |
 | Production build | `npm run build` | success |
 
@@ -120,23 +115,23 @@ fixed.
   reader experience (word tap → meaning + grapheme pronunciation reference, sentence
   highlighting, optional translation, large-text mode, bookmark/resume, keyboard ←/→,
   reduced-motion support, mobile-first).
-- `public/books/book-01-salaan-saaxiib/…`, `book-02-qoyskeyga/…` — 9 generated illustrations.
+- `public/books/book-01-salaan-saaxiib/…` … `book-10-nabad-iyo-wadajir/…` — all 60
+  illustrations (cover + 5 pages per book).
 - `teacher-review/books-character-reference-sheet.jpg`, `teacher-review/books-image-prompts.md`
-  — production reference + the 51 pending prompts.
+  — production reference + full prompt history.
 - `tests/books-*.test.*`, `e2e/books.spec.ts` — test suites.
 - Screenshots: `screenshots/books-*.png` (4).
 
 ## 13. Outstanding defects
 
-1. **51/61 illustrations not yet generated** (platform limit: 10 images per user turn). The
-   asset-existence unit test fails until they land; the app degrades gracefully with honest
-   fallback panels. Remaining prompts are locked in `teacher-review/books-image-prompts.md`.
-2. **Teacher review pending** — all content `PENDING_REVIEW`; release requires a fluent
-   Somali teacher pass.
-3. **Audio not recorded** — 170 manifest entries `NOT_RECORDED`; listening features stay
+1. **Teacher review pending** — all content `PENDING_REVIEW`; release requires a fluent
+   Somali teacher pass before any claim of approval.
+2. **Audio not recorded** — 170 manifest entries `NOT_RECORDED`; listening features stay
    disabled until approved recordings exist.
-4. Speaking/output activities are self-recorded and teacher-evaluated only — no automatic
+3. Speaking/output activities are self-recorded and teacher-evaluated only — no automatic
    grading claims (by design).
+4. The character reference sheet in `teacher-review/` depicts all girls with hijab per user
+   instruction (v2, 24 Nov 2026); any earlier depiction without hijab is void.
 
 ## 14. Honesty statement
 
