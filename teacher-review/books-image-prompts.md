@@ -17,15 +17,20 @@ characters. Generated 2026-11-24: 10/61 (this file lists the remaining 51).
 
 > Ayaan, a cheerful 7-year-old Somali boy with short black curly hair, white short-sleeved
 > shirt and royal blue macawiis sarong · Cabdi, a same-age Somali boy with a red knitted kufi
-> cap, white shirt and grey macawiis · Hodan, a 9-year-old Somali girl with long braided hair
-> in a green dirac dress with gold trim · Ismaaciil, a toddler boy in a yellow t-shirt ·
+> cap, white shirt and grey macawiis · Hodan, a 9-year-old Somali girl wearing a **green hijab**
+> and a green dirac dress with gold trim · Ismaaciil, a toddler boy in a yellow t-shirt ·
 > their mother Maryan, a Somali woman in a long royal-blue dirac dress with a cream hijab ·
 > their father Cabdiraxmaan, a tall Somali man with a short beard, cream shirt and plaid
 > macawiis · grandfather, an elderly Somali man with a white beard, white koofiyad cap and
 > walking cane · grandmother, an elderly Somali woman in a maroon dirac and indho shareer
-> headscarf · Asma, a 10-year-old Somali girl with a ponytail and orange scarf · Maxamed,
-> her 12-year-old brother in a striped shirt and kufi · Faaduma, a Somali teenage girl in a
-> purple dirac and cream hijab · Cali, a boy in a green shirt.
+> headscarf · Asma, a 10-year-old Somali girl wearing an **orange hijab** and an
+> orange-accented dress · Maxamed, her 12-year-old brother in a striped shirt and kufi ·
+> Faaduma, a Somali teenage girl in a purple dirac and **cream hijab** · Cali, a boy in a
+> green shirt.
+
+**Standing correction (user instruction): every girl in every illustration wears a hijab.**
+Descriptions of Hodan/Asma as "braided hair"/"ponytail" are void. Any prompt showing a girl
+with uncovered hair is wrong.
 
 ## Status
 
@@ -45,12 +50,12 @@ b04 cover = 10. Remaining after turn 2: 41.
 ## Remaining prompts
 
 ### book-02-qoyskeyga/page-03.jpg
-Two Somali siblings at home: Hodan sitting and reading an open book with interest; beside
+Two Somali siblings at home: Hodan (green hijab) sitting and reading an open book with interest; beside
 her Ismaaciil playing with a small ball on a woven floor mat. Cozy room corner with a simple
 mat and cushions. (Style block; add: NO readable book text.)
 
 ### book-02-qoyskeyga/page-04.jpg
-Grandfather sitting and telling a story with a raised hand gesture to Ayaan and Hodan seated
+Grandfather sitting and telling a story with a raised hand gesture to Ayaan and Hodan (green hijab) seated
 on a woven mat, eyes wide with delight; grandmother smiling nearby with a clay pot.
 
 ### book-02-qoyskeyga/page-05.jpg
@@ -59,31 +64,31 @@ teapot: Maryan serving food; Cabdiraxmaan; Ayaan; Hodan; Ismaaciil; grandfather;
 Warm lamplight, happy mood.
 
 ### book-03-gurigayga/cover.jpg
-Cutaway view of a cosy Somali home with Hodan standing in the doorway, waving warmly; inside
+Cutaway view of a cosy Somali home with Hodan (green hijab) standing in the doorway, waving warmly; inside
 the cutaway rooms are simple: a floor mat with cushions, a low table with chairs, a bed with
 folded blanket, a kitchen corner with a clay pot; whitewashed walls, wooden door and window.
 
 ### book-03-gurigayga/page-01.jpg
-Hodan standing outside her family house, gesturing proudly towards it; the house is
+Hodan (green hijab) standing outside her family house, gesturing proudly towards it; the house is
 whitewashed with a sturdy wooden door, a bright window and a small step; a dotted sky and
 small plant beside the door.
 
 ### book-03-gurigayga/page-02.jpg
-A cosy Somali living room: Hodan sitting on cushions on a woven floor mat beside a low wooden
+A cosy Somali living room: Hodan (green hijab) sitting on cushions on a woven floor mat beside a low wooden
 table and two simple chairs, a window with dotted light on the wall, warm and welcoming.
 
 ### book-03-gurigayga/page-03.jpg
 A simple Somali kitchen: Maryan cooking at a clay pot on a small stove, steam rising as dotted
-texture; a sturdy wooden table with a bowl and plates nearby; Hodan standing beside the table
+texture; a sturdy wooden table with a bowl and plates nearby; Hodan (green hijab) standing beside the table
 watching happily.
 
 ### book-03-gurigayga/page-04.jpg
 The bedroom: a bed with a folded blanket and pillow, a small window with soft dotted light,
-a wooden door; Hodan peeking in happily. Keep the halftone shading on walls, not on the bed.
+a wooden door; Hodan (green hijab) peeking in happily. Keep the halftone shading on walls, not on the bed.
 
 ### book-03-gurigayga/page-05.jpg
 The house exterior at dusk: warm light glowing from the window (halftone glow), a dotted
-evening sky, Hodan standing outside looking up at her home lovingly.
+evening sky, Hodan (green hijab) standing outside looking up at her home lovingly.
 
 ### book-04-dugsigayga/cover.jpg
 Ayaan holding a book and pen standing proudly in front of a whitewashed school with a large
