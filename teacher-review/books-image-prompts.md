@@ -49,11 +49,15 @@ with uncovered hair is wrong.
 | b09 cover + pages 1–5 | public/books/book-09-maalin-aan-la-illaabi-karin/* | done (6) |
 | b10 cover + pages 1–5 | public/books/book-10-nabad-iyo-wadajir/* | done (6) |
 
-**STATUS: 61/61 COMPLETE.** Batch history: turn 1 = sheet + b01 (6) + b02 (3) = 10;
-turn 2 = b02 pages 3–5 + b03 (6) + b04 cover = 10; turn 3 = hijab corrections (sheet + 9
-regenerations) = 10; turn 4 = b04 pages 1–5 + b05 cover + pages 1–4 = 10; turn 5 = b05
-page-05 + b06 (6) + b07 cover + pages 1–2 = 10; turn 6 = b07 pages 3–5 + b08 (6) + b09
-cover = 10; turn 7 = b09 pages 1–5 + b10 cover + pages 1–4 = 10; turn 8 = b10 page-05 = 1.
+**STATUS: 61/61 COMPLETE — every female character wears hijab.** Batch history: turn 1 =
+sheet + b01 (6) + b02 (3) = 10; turn 2 = b02 pages 3–5 + b03 (6) + b04 cover = 10; turn 3 =
+hijab corrections (sheet + 9 regenerations) = 10; turn 4 = b04 pages 1–5 + b05 cover +
+pages 1–4 = 10; turn 5 = b05 page-05 + b06 (6) + b07 cover + pages 1–2 = 10; turn 6 = b07
+pages 3–5 + b08 (6) + b09 cover = 10; turn 7 = b09 pages 1–5 + b10 cover + pages 1–4 = 10;
+turn 8 = b10 page-05 = 1; turn 9 = final hijab audit + regeneration of the two remaining
+pre-correction images (b02 cover, b02 page-01) — Hodan now wears the green hijab there too.
+Audit of all 61 assets: Book 1 is boys-only (background figures head-covered); every other
+image shows all girls/women in hijab or indho shareer.
 
 ## Remaining prompts
 
