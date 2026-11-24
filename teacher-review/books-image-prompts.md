@@ -46,13 +46,15 @@ with uncovered hair is wrong.
 | b07 cover + pages 1–5 | public/books/book-07-maalin-roobaad/* | done (6) |
 | b08 cover + pages 1–5 | public/books/book-08-socodka-magaalada/* | done (6) |
 | b09 cover | public/books/book-09-maalin-aan-la-illaabi-karin/cover.jpg | done (1) |
-| b09 pages 1–5 | public/books/book-09-maalin-aan-la-illaabi-karin/page-01..05.jpg | pending |
-| b10 cover + pages 1–5 | public/books/book-10-nabad-iyo-wadajir/ | pending (6) |
+| b09 cover + pages 1–5 | public/books/book-09-maalin-aan-la-illaabi-karin/* | done (6) |
+| b10 cover + pages 1–4 | public/books/book-10-nabad-iyo-wadajir/cover.jpg, page-01..04.jpg | done (5) |
+| b10 page 5 | public/books/book-10-nabad-iyo-wadajir/page-05.jpg | **pending — the last asset** |
 
 Batch history: turn 1 = sheet + b01 (6) + b02 (3) = 10; turn 2 = b02 pages 3–5 + b03 (6) +
 b04 cover = 10; turn 3 = hijab corrections (sheet + 9 regenerations) = 10; turn 4 = b04
 pages 1–5 + b05 cover + pages 1–4 = 10; turn 5 = b05 page-05 + b06 (6) + b07 cover +
-pages 1–2 = 10; turn 6 = b07 pages 3–5 + b08 (6) + b09 cover = 10. Remaining after turn 6: 11.
+pages 1–2 = 10; turn 6 = b07 pages 3–5 + b08 (6) + b09 cover = 10; turn 7 = b09 pages 1–5
++ b10 cover + pages 1–4 = 10. Remaining after turn 7: 1.
 
 ## Remaining prompts
 
