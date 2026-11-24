@@ -18,6 +18,18 @@ A complete Somali language school built on the existing Stage 1 prototype. Seven
 
 54 modules · 72 lessons · 371 vocabulary items · 39 reading passages (Levels 1–7) · 24 dialogues · 47 speaking tasks · 202 interactive exercises across ~16 reusable activity types, in one shared curriculum served to three learner paths (absolute beginner, home-speaker-learns-to-read via a 10-item diagnostic, improving learner).
 
+### Maktabadda — the halftone book library
+
+`#/books` is a digital library of **10 original Somali children’s books** (Levels 1–10) in one
+progressive reading pathway: every book has exactly five illustrated story pages + a cover
+(50 pages, 60 illustrations) in a consistent vintage halftone print style, with a distraction-
+free reader (tap-a-word meanings + phonics-safe grapheme references, sentence highlighting,
+optional translation, large text, bookmark/resume, keyboard and touch navigation) and a
+per-book end-of-book assessment (5 vocab + 3 comprehension + 1 main idea + 1 spoken/writing
+task). Mastery needs comprehension (configurable 80%) — never page turns alone. Progress is
+stored in `baro-books-v1`. All book content is `PENDING_REVIEW` and all book audio is
+`NOT_RECORDED`; see `BOOKS_DELIVERY_REPORT.md` for status, screenshots and remaining assets.
+
 Every lesson follows the seven-step cycle **Dhegayso → Baro → Ku hadal → Akhri → Faham → Isticmaal → Dib u eeg**, and every lesson ships real content — objectives, vocabulary, dialogues, reading, grammar, exercises, speaking tasks and a recap. Mastery is configurable (default 80%) over distinct objective exercises, with spoken evidence where the lesson has speaking tasks; spaced vocabulary review runs at [1, 3, 7, 16, 35] days; stage assessments score akhris/qoris objectively and never fabricate a listening/speaking pass; certificates require all lessons plus the assessment; a plain-text progress report (`warbixinta-horumarka.txt`) can be downloaded for parents and teachers. School progress is stored separately (`baro-school-v1`) and never touches the preserved phonics key `baro-progress-v2`.
 
 UI routes: home, `#/paths`, `#/diagnostic`, `#/stage/<id>`, `#/lesson/<id>`, `#/dashboard`; the legacy Stage 1 + Hadraawi app lives at `#/xaraf` (deep links `#/xaraf?unit=N`, `#/xaraf?view=culture|story`).

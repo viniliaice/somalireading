@@ -16,7 +16,12 @@ import { Dashboard } from './Dashboard';
 import { LessonView } from './LessonView';
 import { StageView } from './StageView';
 import { primeActivityCache } from './activities';
+import { books as libraryBooks, bookById } from '../books/index';
+import { loadBooksProgress, saveBooksProgress, type BooksProgress } from '../books/progress';
+import { Bookshelf } from '../books/Bookshelf';
+import { BookReader } from '../books/BookReader';
 import './school.css';
+import '../books/books.css';
 
 type Route =
   | { name: 'home' }
@@ -24,22 +29,27 @@ type Route =
   | { name: 'diagnostic' }
   | { name: 'stage'; stageId: string }
   | { name: 'lesson'; lessonId: string }
-  | { name: 'dashboard' };
+  | { name: 'dashboard' }
+  | { name: 'books' }
+  | { name: 'book'; bookId: string };
 
 function parseHash(): Route {
   const h = window.location.hash.replace(/^#\/?/, '');
   const [head, id] = h.split('/');
   if (head === 'stage' && id) return { name: 'stage', stageId: id };
   if (head === 'lesson' && id) return { name: 'lesson', lessonId: id };
+  if (head === 'book' && id) return { name: 'book', bookId: id };
   if (head === 'dashboard') return { name: 'dashboard' };
   if (head === 'paths') return { name: 'paths' };
   if (head === 'diagnostic') return { name: 'diagnostic' };
+  if (head === 'books') return { name: 'books' };
   return { name: 'home' };
 }
 
 export function SchoolApp() {
   const [route, setRoute] = useState<Route>(parseHash);
   const [progress, setProgress] = useState<SchoolProgress>(loadSchoolProgress);
+  const [bookProgress, setBookProgress] = useState<BooksProgress>(loadBooksProgress);
   const [navOpen, setNavOpen] = useState(false);
 
   useEffect(() => {
@@ -48,14 +58,18 @@ export function SchoolApp() {
     return () => window.removeEventListener('hashchange', handler);
   }, []);
   useEffect(() => {
-    setProgress(p => saveSchoolProgress(p));
+    // Persist without setState — saveSchoolProgress stamps a new updatedAt.
+    saveSchoolProgress(progress);
   }, [progress]);
+  useEffect(() => {
+    saveBooksProgress(bookProgress);
+  }, [bookProgress]);
   useEffect(() => {
     primeActivityCache(stages.flatMap(st => st.modules.flatMap(m => m.lessons)));
   }, []);
 
   const navigate = useCallback((r: Route) => {
-    const hash = r.name === 'home' ? '#/' : r.name === 'stage' ? `#/stage/${r.stageId}` : r.name === 'lesson' ? `#/lesson/${r.lessonId}` : r.name === 'dashboard' ? '#/dashboard' : `#/${r.name}`;
+    const hash = r.name === 'home' ? '#/' : r.name === 'stage' ? `#/stage/${r.stageId}` : r.name === 'lesson' ? `#/lesson/${r.lessonId}` : r.name === 'book' ? `#/book/${r.bookId}` : r.name === 'dashboard' ? '#/dashboard' : `#/${r.name}`;
     if (window.location.hash !== hash) window.location.hash = hash;
     else setRoute(r);
     setNavOpen(false);
@@ -92,6 +106,20 @@ export function SchoolApp() {
   }, [route]);
 
   const openLesson = useCallback((l: Lesson) => navigate({ name: 'lesson', lessonId: l.id }), [navigate]);
+  const activeBook = route.name === 'book' ? bookById(route.bookId) : undefined;
+
+  // The book reader is distraction-free: it renders full-screen without the school chrome.
+  if (route.name === 'book' && activeBook) {
+    return (
+      <BookReader
+        book={activeBook}
+        progress={bookProgress}
+        onBack={() => navigate({ name: 'books' })}
+        onProgress={setBookProgress}
+        onOpenBooks={() => navigate({ name: 'books' })}
+      />
+    );
+  }
 
   return (
     <div className="sc-app">
@@ -106,6 +134,7 @@ export function SchoolApp() {
             <button className={route.name === 'paths' || route.name === 'diagnostic' ? 'active' : ''} onClick={() => navigate({ name: 'paths' })}><Sparkles size={18} /> Jidka waxbarashada</button>
             <button className={route.name === 'stage' ? 'active' : ''} onClick={() => navigate({ name: 'home' })}><BookOpen size={18} /> Heerarka <span className="sc-count">7</span></button>
             <button className={route.name === 'dashboard' ? 'active' : ''} onClick={() => navigate({ name: 'dashboard' })}><Award size={18} /> Horumarkayga</button>
+            <button className={route.name === 'books' ? 'active' : ''} onClick={() => navigate({ name: 'books' })}><BookOpen size={18} /> Buugaagta <span className="sc-count">10</span></button>
             <button onClick={() => openLegacy('#/xaraf')}><Feather size={18} /> Xarfaha (Heerka 1)</button>
             <button onClick={() => openLegacy('#/xaraf?view=culture')}><Feather size={18} /> Dhaqan iyo Suugaan</button>
           </nav>
@@ -126,7 +155,16 @@ export function SchoolApp() {
               onOpenStage={id => navigate({ name: 'stage', stageId: id })}
               onOpenPaths={() => navigate({ name: 'paths' })}
               onOpenDashboard={() => navigate({ name: 'dashboard' })}
+              onOpenBooks={() => navigate({ name: 'books' })}
               onOpenLegacy={openLegacy}
+            />
+          )}
+          {route.name === 'books' && (
+            <Bookshelf
+              books={libraryBooks}
+              progress={bookProgress}
+              onOpenBook={id => navigate({ name: 'book', bookId: id })}
+              onOpenSchool={() => navigate({ name: 'home' })}
             />
           )}
           {route.name === 'paths' && (
@@ -160,12 +198,13 @@ export function SchoolApp() {
   );
 }
 
-function HomePage({ progress, totals, onOpenStage, onOpenPaths, onOpenDashboard, onOpenLegacy }: {
+function HomePage({ progress, totals, onOpenStage, onOpenPaths, onOpenDashboard, onOpenBooks, onOpenLegacy }: {
   progress: SchoolProgress;
   totals: ReturnType<typeof schoolTotals>;
   onOpenStage: (id: string) => void;
   onOpenPaths: () => void;
   onOpenDashboard: () => void;
+  onOpenBooks: () => void;
   onOpenLegacy: (hash: string) => void;
 }) {
   return (
@@ -182,6 +221,7 @@ function HomePage({ progress, totals, onOpenStage, onOpenPaths, onOpenDashboard,
       <div className="sc-audio-row">
         <button className="sc-btn" onClick={onOpenPaths}>Dooro jidkaaga <ArrowRight size={16} /></button>
         <button className="sc-btn secondary" onClick={onOpenDashboard}>Horumarkayga <Award size={16} /></button>
+        <button className="sc-btn" onClick={onOpenBooks}>Maktabadda sheekooyinka <BookOpen size={16} /></button>
         <button className="sc-btn secondary" onClick={() => onOpenLegacy('#/xaraf')}>Fur casharradii xarfaha (Heerka 1)</button>
       </div>
       <p className="sc-note">Horumar degdeg ah: {Object.keys(progress.lessons).length} cashar ayaad taabatay · {Object.keys(progress.vocabulary).length} eray ayaan dib u eegnay · {Object.keys(progress.certificates).length} shahaado.</p>
