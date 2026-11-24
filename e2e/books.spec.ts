@@ -119,3 +119,19 @@ test('library pages raise no script errors and school features stay reachable', 
 async function documentHasText(page: import('@playwright/test').Page, text: string) {
   return page.evaluate(t => document.body.textContent?.includes(t) ?? false, text);
 }
+
+test('library strip on the home page shows all covers and enters a book in one click', async ({ page }) => {
+  await page.getByRole('button', { name: 'Bogga hore' }).click();
+  const strip = page.locator('.sc-lib');
+  await expect(strip).toBeVisible();
+  await expect(page.getByRole('heading', { name: /10 buug oo halftone ah/ })).toBeVisible();
+  await expect(strip.locator('.sc-lib-item')).toHaveCount(10);
+  // one click on a cover opens that book directly
+  await page.getByRole('button', { name: 'Fur buugga Salaan, saaxiib!' }).click();
+  await expect(page.getByText('Bogga 1 / 5').first()).toBeVisible();
+  // exit the full-screen reader, then the big button opens the full bookshelf
+  await page.getByRole('button', { name: /Buugaagta/ }).first().click();
+  await page.getByRole('button', { name: 'Bogga hore' }).click();
+  await page.getByRole('button', { name: /Gal maktabadda/ }).click();
+  await expect(page.getByRole('heading', { name: 'Toob buugaag ah oo Af-Soomaali ah' })).toBeVisible();
+});

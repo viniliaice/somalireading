@@ -17,9 +17,11 @@ import { LessonView } from './LessonView';
 import { StageView } from './StageView';
 import { primeActivityCache } from './activities';
 import { books as libraryBooks, bookById } from '../books/index';
+import type { StoryBook } from '../books/types';
 import { loadBooksProgress, saveBooksProgress, type BooksProgress } from '../books/progress';
 import { Bookshelf } from '../books/Bookshelf';
 import { BookReader } from '../books/BookReader';
+import { BookImage } from '../books/BookImage';
 import './school.css';
 import '../books/books.css';
 
@@ -152,10 +154,12 @@ export function SchoolApp() {
             <HomePage
               progress={progress}
               totals={totals}
+              books={libraryBooks}
               onOpenStage={id => navigate({ name: 'stage', stageId: id })}
               onOpenPaths={() => navigate({ name: 'paths' })}
               onOpenDashboard={() => navigate({ name: 'dashboard' })}
               onOpenBooks={() => navigate({ name: 'books' })}
+              onOpenBook={id => navigate({ name: 'book', bookId: id })}
               onOpenLegacy={openLegacy}
             />
           )}
@@ -198,13 +202,15 @@ export function SchoolApp() {
   );
 }
 
-function HomePage({ progress, totals, onOpenStage, onOpenPaths, onOpenDashboard, onOpenBooks, onOpenLegacy }: {
+function HomePage({ progress, totals, books, onOpenStage, onOpenPaths, onOpenDashboard, onOpenBooks, onOpenBook, onOpenLegacy }: {
   progress: SchoolProgress;
   totals: ReturnType<typeof schoolTotals>;
+  books: StoryBook[];
   onOpenStage: (id: string) => void;
   onOpenPaths: () => void;
   onOpenDashboard: () => void;
   onOpenBooks: () => void;
+  onOpenBook: (id: string) => void;
   onOpenLegacy: (hash: string) => void;
 }) {
   return (
@@ -225,6 +231,26 @@ function HomePage({ progress, totals, onOpenStage, onOpenPaths, onOpenDashboard,
         <button className="sc-btn secondary" onClick={() => onOpenLegacy('#/xaraf')}>Fur casharradii xarfaha (Heerka 1)</button>
       </div>
       <p className="sc-note">Horumar degdeg ah: {Object.keys(progress.lessons).length} cashar ayaad taabatay · {Object.keys(progress.vocabulary).length} eray ayaan dib u eegnay · {Object.keys(progress.certificates).length} shahaado.</p>
+
+      <section className="sc-lib" aria-label="Maktabadda sheekooyinka">
+        <div className="sc-lib-head">
+          <div>
+            <p className="sc-eyebrow">MAKTABADDA SHEEKEOOYINKA</p>
+            <h2 className="sc-h2" style={{ margin: '2px 0 4px' }}>10 buug oo halftone ah — dooro oo bilow</h2>
+            <p className="sc-note">Guji daboolka si aad u gasho buugga, ama fur maktabadda oo dhan.</p>
+          </div>
+          <button className="sc-btn" onClick={onOpenBooks}>Gal maktabadda <ArrowRight size={16} /></button>
+        </div>
+        <div className="sc-lib-strip">
+          {books.map(b => (
+            <button key={b.id} className="sc-lib-item" onClick={() => onOpenBook(b.id)} aria-label={`Fur buugga ${b.titleSo}`}>
+              <span className="sc-lib-cover"><BookImage src={b.cover} alt={b.coverAltSo} /></span>
+              <span className="sc-lib-title">{b.titleSo}</span>
+              <span className="sc-lib-meta">Heer {b.level}</span>
+            </button>
+          ))}
+        </div>
+      </section>
 
       <h2 className="sc-h2">Todobada heer</h2>
       <div className="sc-grid-wide">
