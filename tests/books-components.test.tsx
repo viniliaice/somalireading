@@ -32,7 +32,7 @@ describe('book reader', () => {
     const onProgress = vi.fn();
     render(<BookReader book={books[0]} progress={emptyBooksProgress()} onBack={() => {}} onProgress={onProgress} onOpenBooks={() => {}} />);
     expect(document.body.textContent).toContain('Waa subax cusub.');
-    fireEvent.click(screen.getByRole('button', { name: 'Erayga Ayaan' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Erayga Ayaanle' }));
     // popover opens with a phonics-safe pronunciation reference (grapheme tiles, no fake audio)
     expect(screen.getByRole('dialog', { name: 'Macluumaadka erayga' })).toBeTruthy();
     expect(screen.getByText('Eray aasaasi ah')).toBeTruthy();
@@ -90,7 +90,7 @@ describe('end-of-book quiz', () => {
     const onProgress = vi.fn();
     render(<BookReader book={books[0]} progress={progress} onBack={() => {}} onProgress={onProgress} onOpenBooks={() => {}} />);
     fireEvent.click(screen.getByRole('button', { name: /Tijaabada/ }));
-    fireEvent.change(screen.getByRole('textbox', { name: 'Jawaabta qoraalka' }), { target: { value: 'Magacaygu waa Ayaan.' } });
+    fireEvent.change(screen.getByRole('textbox', { name: 'Jawaabta qoraalka' }), { target: { value: 'Magacaygu waa Ayaanle.' } });
     fireEvent.click(screen.getByRole('button', { name: /Waan sameeyay/ }));
     expect(onProgress).toHaveBeenCalled();
   });

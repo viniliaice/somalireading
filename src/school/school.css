@@ -101,3 +101,25 @@
   .sc-lib-strip { grid-template-columns: repeat(auto-fill, minmax(min(104px, 100%), 1fr)); gap: 9px; }
   .sc-lib-head .sc-btn { width: 100%; justify-content: center; }
 }
+
+/* ── Fit-to-viewport lesson shell — the body never scrolls; the step area
+   absorbs any overflow internally so every screen just fits. ─────────── */
+.sc-app.fit, .sc-app.fit .sc-shell { height: 100vh; height: 100dvh; overflow: hidden; }
+.sc-app.fit .sc-side { position: static; height: auto; max-height: 100%; overflow-y: auto; flex-shrink: 0; }
+.sc-app.fit .sc-main { display: flex; flex-direction: column; min-height: 0; height: 100%; overflow: hidden; padding: 0 26px; }
+.sc-app.fit .sc-footer-note { flex-shrink: 0; margin: 0; padding: 5px 0 max(5px, env(safe-area-inset-bottom)); font-size: 11px; text-align: center; }
+.sc-lesson { display: flex; flex-direction: column; flex: 1; min-height: 0; width: 100%; max-width: 1060px; margin: 0 auto; padding: 12px 4px 0; }
+.sc-lesson-head { flex-shrink: 0; }
+.sc-lesson-head .sc-h1 { margin: 2px 0 3px; font-size: clamp(20px, 2.2vw + 1vh, 30px); }
+.sc-lesson-head .sc-lead { margin: 4px 0 6px; font-size: clamp(12.5px, 1.2vw + 0.7vh, 15.5px); }
+.sc-lesson-head .sc-back { margin-bottom: 2px; }
+.sc-lesson-head .sc-stepbar { margin: 8px 0 6px; }
+.sc-lesson-scroll { flex: 1; min-height: 0; overflow-y: auto; padding: 0 4px 12px; }
+.sc-lesson-scroll .sc-h2 { margin: 8px 0 6px; font-size: clamp(17px, 1.8vw + 0.8vh, 22px); }
+.sc-lesson-scroll .sc-card { padding: 12px 15px; margin: 8px 0; border-radius: 14px; }
+.sc-lesson-scroll .sc-passage { font-size: clamp(14.5px, 1.2vw + 0.8vh, 16.5px); padding: 13px; }
+.sc-lesson-foot { flex-shrink: 0; display: flex; justify-content: flex-end; padding: 8px 4px 10px; border-top: 1.5px solid #f0e3cd; background: #fbfaf6; }
+@media (max-width: 700px) {
+  .sc-app.fit .sc-side { max-height: 38dvh; }
+  .sc-app.fit .sc-main { padding: 0 14px; }
+}

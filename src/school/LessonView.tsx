@@ -71,28 +71,32 @@ export function LessonView({ lesson, onBack, onGrade, onVocab, onSpeak, onLegacy
   const nextStep = steps[steps.indexOf(step) + 1];
 
   return (
-    <div>
-      <button className="sc-back" onClick={onBack}><ArrowLeft size={16} /> Dib u noqo</button>
-      <p className="sc-eyebrow">{lesson.stageId.toUpperCase()} · {lesson.moduleId.toUpperCase()}</p>
-      <h1 className="sc-h1">{lesson.titleSo}</h1>
-      <p className="sc-lead">{lesson.titleEn} · qiyaastii {lesson.minutes} daqiiqo · xirfadaha: {lesson.skills.join(', ')}</p>
-      {lesson.legacyRoute && (
-        <div className="sc-pending">
-          Casharkan waxaa lagu baryaa khibradda xarfaha asalka ah ee la ilaaliyay.
-          <button className="sc-btn small" style={{ marginLeft: 10 }} onClick={() => onLegacyOpen?.(lesson.legacyRoute!)}>Fur casharka xarfaha <ArrowRight size={14} /></button>
-        </div>
-      )}
+    <div className="sc-lesson">
+      <div className="sc-lesson-head">
+        <button className="sc-back" onClick={onBack}><ArrowLeft size={16} /> Dib u noqo</button>
+        <p className="sc-eyebrow">{lesson.stageId.toUpperCase()} · {lesson.moduleId.toUpperCase()}</p>
+        <h1 className="sc-h1">{lesson.titleSo}</h1>
+        <p className="sc-lead">{lesson.titleEn} · qiyaastii {lesson.minutes} daqiiqo · xirfadaha: {lesson.skills.join(', ')}</p>
+        {lesson.legacyRoute && (
+          <div className="sc-pending">
+            Casharkan waxaa lagu baryaa khibradda xarfaha asalka ah ee la ilaaliyay.
+            <button className="sc-btn small" style={{ marginLeft: 10 }} onClick={() => onLegacyOpen?.(lesson.legacyRoute!)}>Fur casharka xarfaha <ArrowRight size={14} /></button>
+          </div>
+        )}
+        <nav className="sc-stepbar" aria-label="Tallaabooyinka casharka">
+          {steps.map(s => (
+            <button key={s} className={`${s === step ? 'active' : ''} ${visited.has(s) && s !== step ? 'done' : ''}`} onClick={() => goto(s)}>
+              {stepIcons[s]} {stepLabels[s]} {visited.has(s) && s !== step ? '✓' : ''}
+            </button>
+          ))}
+        </nav>
+      </div>
+
+      <div className="sc-lesson-scroll">
       <div className="sc-card">
         <p className="sc-eyebrow">UJEEDDOOYINKA</p>
         <ul>{lesson.objectivesSo.map((o, i) => <li key={i}>{o}</li>)}</ul>
       </div>
-      <nav className="sc-stepbar" aria-label="Tallaabooyinka casharka">
-        {steps.map(s => (
-          <button key={s} className={`${s === step ? 'active' : ''} ${visited.has(s) && s !== step ? 'done' : ''}`} onClick={() => goto(s)}>
-            {stepIcons[s]} {stepLabels[s]} {visited.has(s) && s !== step ? '✓' : ''}
-          </button>
-        ))}
-      </nav>
 
       {step === 'dhagayso' && (
         <section>
@@ -221,12 +225,14 @@ export function LessonView({ lesson, onBack, onGrade, onVocab, onSpeak, onLegacy
         </section>
       )}
 
+      <p className="sc-footer-note"><Pencil size={13} /> Wax kasta oo boggu qoro waa dib-u-eegis macallin u baahan (PENDING_REVIEW).</p>
+      </div>
+
       {steps.indexOf(step) < steps.length - 1 && step !== 'dib-u-eeg' && (
-        <div className="sc-audio-row" style={{ marginTop: 18 }}>
+        <div className="sc-lesson-foot">
           <button className="sc-btn" onClick={() => goto(nextStep)}>Tallaabada xigta: {stepLabels[nextStep]} <ArrowRight size={16} /></button>
         </div>
       )}
-      <p className="sc-footer-note"><Pencil size={13} /> Wax kasta oo boggu qoro waa dib-u-eegis macallin u baahan (PENDING_REVIEW).</p>
     </div>
   );
 }

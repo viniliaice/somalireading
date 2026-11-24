@@ -28,7 +28,7 @@ describe('mastery rules', () => {
     let p = emptyBooksProgress();
     for (let n = 1; n <= 5; n++) p = markPageRead(p, books[0].id, n);
     const { progress: p2 } = recordQuizAttempt(p, books[0], allCorrect(books[0]));
-    p = markOutputDone(p2, books[0].id, 'Magacaygu waa Ayaan.');
+    p = markOutputDone(p2, books[0].id, 'Magacaygu waa Ayaanle.');
     const r = bookMastery(p, books[0]);
     expect(r.objectiveScore).toBe(1);
     expect(r.mastered).toBe(true);

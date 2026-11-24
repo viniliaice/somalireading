@@ -12,8 +12,8 @@ export const book02 = book({
   level: 2,
   levelLabelSo: 'Bilowe',
   themeSo: 'Qoyska',
-  descriptionSo: 'Ayaan wuxuu noo sheegayaa qoyskiisa: hooyo, aabbe, walaallo, awoowe iyo ayeeyo. Waa qoys jecel oo wada jira.',
-  descriptionEn: 'Ayaan tells us about his family: mother, father, siblings, grandfather and grandmother.',
+  descriptionSo: 'Ayaanle wuxuu noo sheegayaa qoyskiisa: hooyo, aabbe, walaallo, awoowe iyo ayeeyo. Waa qoys jecel oo wada jira.',
+  descriptionEn: 'Ayaanle tells us about his family: mother, father, siblings, grandfather and grandmother.',
   cover: '/books/book-02-qoyskeyga/cover.jpg',
   coverAltSo: 'Qoys Soomaaliyeed oo faraxsan oo hortooda gurigooda taagan.',
   pages: [

@@ -124,7 +124,7 @@ export function SchoolApp() {
   }
 
   return (
-    <div className="sc-app">
+    <div className={route.name === 'lesson' ? 'sc-app fit' : 'sc-app'}>
       <div className="sc-shell">
         <aside className={`sc-side ${navOpen ? 'open' : ''}`}>
           <div className="sc-brand">
