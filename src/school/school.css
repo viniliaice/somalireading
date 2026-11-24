@@ -4,6 +4,8 @@
 .sc-side { width: 240px; flex-shrink: 0; background: #fff7ea; border-right: 2px solid #f0e3cd; padding: 18px 14px; display: flex; flex-direction: column; gap: 8px; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
 .sc-brand { display: flex; align-items: center; gap: 8px; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 19px; color: #283d37; margin-bottom: 10px; }
 .sc-brand small { display: block; font-size: 10px; letter-spacing: 1.5px; color: #b0793c; font-weight: 700; }
+.sc-nav-toggle { display: none; align-items: center; gap: 6px; margin-left: auto; border: 2px solid #283d37; background: #fff; color: #283d37; font-family: inherit; font-weight: 700; font-size: 13px; padding: 7px 12px; border-radius: 999px; cursor: pointer; box-shadow: 2px 2px 0 rgba(40, 61, 55, 0.35); }
+.sc-nav-toggle:hover { background: #f7ecd9; }
 .sc-nav { display: flex; flex-direction: column; gap: 4px; }
 .sc-nav button { display: flex; align-items: center; gap: 9px; border: 0; background: transparent; padding: 10px 12px; border-radius: 12px; font-size: 14.5px; font-family: inherit; color: #283d37; cursor: pointer; text-align: left; width: 100%; }
 .sc-nav button:hover { background: #f7ecd9; }
@@ -82,6 +84,9 @@
   .sc-shell { flex-direction: column; }
   .sc-side { width: 100%; height: auto; position: static; flex-direction: row; flex-wrap: wrap; align-items: center; }
   .sc-nav { flex-direction: row; flex-wrap: wrap; }
+  .sc-brand { flex: 1 1 100%; }
+  .sc-nav-toggle { display: inline-flex; }
+  .sc-side:not(.open) .sc-nav, .sc-side:not(.open) .sc-note { display: none; }
   .sc-main { padding: 18px 16px 50px; }
   .sc-h1 { font-size: 24px; }
 }
