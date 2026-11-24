@@ -33,9 +33,14 @@ characters. Generated 2026-11-24: 10/61 (this file lists the remaining 51).
 | --- | --- | --- |
 | character reference sheet | teacher-review/books-character-reference-sheet.jpg | done |
 | b01 cover + pages 1–5 | public/books/book-01-salaan-saaxiib/* | done (6) |
-| b02 cover + pages 1–2 | public/books/book-02-qoyskeyga/cover.jpg, page-01.jpg, page-02.jpg | done (3) |
-| b02 pages 3–5 | public/books/book-02-qoyskeyga/page-03..05.jpg | pending |
-| b03–b10 cover + pages 1–5 | public/books/book-0X-*/ | pending (48) |
+| b02 cover + pages 1–5 | public/books/book-02-qoyskeyga/* | done (6) |
+| b03 cover + pages 1–5 | public/books/book-03-gurigayga/* | done (6) |
+| b04 cover | public/books/book-04-dugsigayga/cover.jpg | done (1) |
+| b04 pages 1–5 | public/books/book-04-dugsigayga/page-01..05.jpg | pending |
+| b05–b10 cover + pages 1–5 | public/books/book-0X-*/ | pending (36) |
+
+Batch history: turn 1 = sheet + b01 (6) + b02 (3) = 10; turn 2 = b02 pages 3–5 + b03 (6) +
+b04 cover = 10. Remaining after turn 2: 41.
 
 ## Remaining prompts
 
