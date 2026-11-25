@@ -101,6 +101,11 @@ html { scroll-behavior: smooth; }
   .ph-hero-art { min-height: 350px; }
   .ph-chip { font-size: 12px; padding: 6px 11px; }
 }
+/* the hero intro (Somali lead + English gloss) eats the phone screen; on
+   small screens the h1 and the two CTAs carry the message on their own */
+@media (max-width: 640px) {
+  .ph-hero-copy .ph-lead, .ph-hero-copy .ph-sub { display: none; }
+}
 
 /* ── generic section ─────────────────────────────────────────────── */
 .ph-section { width: 100%; padding: clamp(52px, 8vh, 84px) max(18px, 4vw); }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, RotateCcw, Check } from 'lucide-react';
+import { ArrowLeft, ArrowRight, RotateCcw, Check } from 'lucide-react';
 import type { StoryBook } from './types';
 import type { BookMasteryReport, BooksProgress } from './progress';
 import { markOutputDone, recordQuizAttempt } from './progress';
@@ -12,7 +12,11 @@ const kindLabel: Record<string, string> = {
   output: 'Hawl qoris/hadal',
 };
 
-/** End-of-book assessment — outside the five story pages. */
+/**
+ * End-of-book assessment — outside the five story pages.
+ * One question per screen: the learner answers and presses "Xiga". Nothing is
+ * stacked, so the assessment never turns into a long scrolling page.
+ */
 export function BookQuiz({ book, progress, onProgress, mastery, onBackToPages, onOpenBooks }: {
   book: StoryBook;
   progress: BooksProgress;
@@ -24,10 +28,18 @@ export function BookQuiz({ book, progress, onProgress, mastery, onBackToPages, o
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [outputText, setOutputText] = useState('');
-  const objective = objectiveQuestions(book);
+  const [step, setStep] = useState(0);
 
-  const correctCount = objective.filter(q => answers[q.id] === q.answer).length;
+  const objective = objectiveQuestions(book);
+  const questions = book.questions;
+  const q = questions[Math.min(step, questions.length - 1)];
+  const total = questions.length;
+  const isLast = step === total - 1;
+
+  const correctCount = objective.filter(x => answers[x.id] === x.answer).length;
   const pct = Math.round((correctCount / objective.length) * 100);
+  const answeredCount = objective.filter(x => answers[x.id]).length;
+  const allAnswered = answeredCount === objective.length;
 
   const submit = () => {
     const { progress: next } = recordQuizAttempt(progress, book, answers);
@@ -38,14 +50,17 @@ export function BookQuiz({ book, progress, onProgress, mastery, onBackToPages, o
   const retry = () => {
     setAnswers({});
     setSubmitted(false);
+    setStep(0);
   };
 
   return (
     <main className="bk-quiz">
-      <p className="bk-eyebrow">TIJAABADA BUUGGA · {book.titleSo}</p>
-      <h2>Sidee buu u ahaa sheekadu?</h2>
+      <div className="bk-quiz-head">
+        <p className="bk-eyebrow">TIJAABADA BUUGGA · {book.titleSo}</p>
+        <h2>Sidee buu u ahaa sheekadu?</h2>
+      </div>
 
-      {submitted && (
+      {submitted ? (
         <div className="bk-result" role="status">
           <h3>Waxaad saxday {correctCount} / {objective.length} ({pct}%)</h3>
           <p>{mastery.reasonSo}</p>
@@ -56,59 +71,76 @@ export function BookQuiz({ book, progress, onProgress, mastery, onBackToPages, o
             <button className="bk-btn small secondary" onClick={onOpenBooks}>Buugaagta</button>
           </div>
         </div>
-      )}
+      ) : (
+        <>
+          <div className="bk-quiz-meta">
+            <span className="bk-quiz-step">Su’aasha {step + 1} / {total}</span>
+            <span className="bk-kind">{kindLabel[q.kind]}</span>
+          </div>
+          <div className="bk-quiz-track" aria-hidden="true">
+            <div style={{ width: `${((step + 1) / total) * 100}%` }} />
+          </div>
 
-      {book.questions.map((q, i) => (
-        <section key={q.id} className="bk-q-card">
-          <span className="bk-kind">{i + 1}. {kindLabel[q.kind]}</span>
-          <h3>{q.promptSo}</h3>
-          {q.kind === 'output' ? (
-            <>
-              <p style={{ margin: '0 0 9px', fontSize: 14, color: '#55503f' }}>{q.taskSo}</p>
-              <textarea
-                className="bk-output-area"
-                value={outputText}
-                onChange={e => setOutputText(e.target.value)}
-                placeholder="Halkan ku qor jawaabtaada…"
-                aria-label="Jawaabta qoraalka"
-              />
-              <div style={{ marginTop: 9, display: 'flex', gap: 9, flexWrap: 'wrap' }}>
-                <button
-                  className="bk-btn small"
-                  onClick={() => onProgress(markOutputDone(progress, book.id, outputText))}
-                >
-                  <Check size={14} /> Waan sameeyay
-                </button>
-                {mastery.outputDone && <span style={{ alignSelf: 'center', fontSize: 13, fontWeight: 700, color: '#2f7d4f' }}>Hawshu way diiwaangashan tahay.</span>}
-              </div>
-            </>
-          ) : (
-            <div className="bk-options">
-              {(q.options ?? []).map(opt => {
-                let cls = 'bk-option';
-                if (submitted) {
-                  if (opt === q.answer) cls += ' correct';
-                  else if (answers[q.id] === opt) cls += ' wrong';
-                } else if (answers[q.id] === opt) cls += ' chosen';
-                return (
-                  <button key={opt} className={cls} disabled={submitted} onClick={() => setAnswers({ ...answers, [q.id]: opt })}>
-                    {opt}
+          <section className="bk-q-card" key={q.id}>
+            <h3>{q.promptSo}</h3>
+            {q.kind === 'output' ? (
+              <>
+                <p className="bk-task">{q.taskSo}</p>
+                <textarea
+                  className="bk-output-area"
+                  value={outputText}
+                  onChange={e => setOutputText(e.target.value)}
+                  placeholder="Halkan ku qor jawaabtaada…"
+                  aria-label="Jawaabta qoraalka"
+                />
+                <div className="bk-output-row">
+                  <button
+                    className="bk-btn small"
+                    onClick={() => onProgress(markOutputDone(progress, book.id, outputText))}
+                  >
+                    <Check size={14} /> Waan sameeyay
                   </button>
-                );
-              })}
-            </div>
-          )}
-        </section>
-      ))}
+                  {mastery.outputDone && <span className="bk-output-done">Hawshu way diiwaangashan tahay.</span>}
+                </div>
+              </>
+            ) : (
+              <div className="bk-options">
+                {(q.options ?? []).map(opt => {
+                  let cls = 'bk-option';
+                  if (answers[q.id] === opt) cls += ' chosen';
+                  return (
+                    <button key={opt} className={cls} onClick={() => setAnswers({ ...answers, [q.id]: opt })}>
+                      {opt}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </section>
 
-      {!submitted && (
-        <button className="bk-btn" style={{ width: '100%' }} onClick={submit} disabled={objective.some(q => !answers[q.id])}>
-          Dhammaystir tijaabada ({Object.keys(answers).length}/{objective.length})
-        </button>
+          <nav className="bk-quiz-nav" aria-label="Su’aalaha">
+            <button
+              className="bk-btn small secondary"
+              onClick={() => setStep(s => Math.max(0, s - 1))}
+              disabled={step === 0}
+            >
+              <ArrowLeft size={15} /> Hore
+            </button>
+            {isLast ? (
+              <button className="bk-btn" onClick={submit} disabled={!allAnswered}>
+                Dhammaystir tijaabada ({answeredCount}/{objective.length})
+              </button>
+            ) : (
+              <button className="bk-btn" onClick={() => setStep(s => Math.min(total - 1, s + 1))}>
+                Xiga <ArrowRight size={15} />
+              </button>
+            )}
+          </nav>
+          <p className="bk-quiz-fine">
+            Natiijadu waa mid dib loo eegi karo; ma aha in hal mar lagu guulaysto. Qiimaynta hadalka waxaa sameeya macallin.
+          </p>
+        </>
       )}
-      <p style={{ fontSize: 12.5, color: '#6b6257', marginTop: 14 }}>
-        Natiijadu waa mid dib loo eegi karo; ma aha in hal mar lagu guulaysto. Qiimaynta hadalka waxaa sameeya macallin.
-      </p>
     </main>
   );
 }

@@ -23,11 +23,17 @@ test('a book opens with story text, word help and page navigation', async ({ pag
   // tap a word → meaning panel with phonics-safe grapheme reference
   await page.getByRole('button', { name: 'Erayga Ayaanle', exact: true }).click();
   await expect(page.getByRole('dialog', { name: 'Macluumaadka erayga' })).toBeVisible();
-  await expect(page.getByText('Eray aasaasi ah')).toBeVisible();
+  // a name is explained as a name, not invented as vocabulary
+  await expect(page.getByText(/boy.s name/)).toHaveCount(0);
+  await page.getByRole('button', { name: 'Ingiriisi' }).click();
+  await expect(page.getByText(/boy.s name/)).toBeVisible();
   await page.getByRole('button', { name: 'Xir' }).click();
   // next page + vocabulary meaning
-  await page.getByRole('button', { name: /Xiga/ }).click();
+  await page.getByRole('button', { name: /^Xiga/ }).click();
   await page.getByRole('button', { name: 'Erayga salaan', exact: true }).click();
+  // the meaning stays in Somali until the learner asks for English
+  await expect(page.getByText('greeting')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Ingiriisi' }).click();
   await expect(page.getByText('greeting')).toBeVisible();
   await page.getByRole('button', { name: 'Xir' }).click();
   await page.screenshot({ path: 'screenshots/books-reader-page.png', fullPage: true });
@@ -57,25 +63,59 @@ test('audio is honestly reported unavailable — never faked', async ({ page }) 
 
 test('end-of-book assessment grades, saves and allows retry', async ({ page }) => {
   await page.getByRole('button', { name: /Bilow akhriska/ }).first().click();
-  for (let i = 0; i < 4; i++) await page.getByRole('button', { name: /Xiga/ }).click();
+  for (let i = 0; i < 4; i++) await page.getByRole('button', { name: /^Xiga/ }).click();
   await page.getByRole('button', { name: /Tijaabada/ }).click();
   await expect(page.getByRole('heading', { name: 'Sidee buu u ahaa sheekadu?' })).toBeVisible();
-  // answer the nine objective questions correctly from the content data
-  const answers = await page.evaluate(() => {
-    const el = document.querySelectorAll('.bk-q-card');
-    return Array.from(el).slice(0, 9).map(card => {
-      const buttons = Array.from(card.querySelectorAll('.bk-option')) as HTMLButtonElement[];
-      return buttons[0]?.textContent ?? '';
-    });
-  });
-  // pick the correct option per question by content order (first option is correct in book 1)
-  for (const a of answers) await page.getByRole('button', { name: a, exact: true }).first().click();
-  await page.getByRole('button', { name: /Dhammaystir tijaabada/ }).click();
-  await expect(page.getByRole('status')).toContainText('/ 9');
+  // one question per screen: answer the first option (correct in book 1), then Xiga
+  for (let n = 1; n <= 9; n++) {
+    await expect(page.getByText(`Su\u2019aasha ${n} / 10`)).toBeVisible();
+    await page.locator('.bk-option').first().click();
+    await page.getByRole('button', { name: /^Xiga/ }).click();
+  }
+  // the tenth screen is the output task
+  await expect(page.getByText('Su\u2019aasha 10 / 10')).toBeVisible();
   await page.getByRole('textbox', { name: 'Jawaabta qoraalka' }).fill('Magacaygu waa Ayaanle.');
   await page.getByRole('button', { name: /Waan sameeyay/ }).click();
   await expect(page.getByText('Hawshu way diiwaangashan tahay.')).toBeVisible();
+  await page.getByRole('button', { name: /Dhammaystir tijaabada/ }).click();
+  await expect(page.getByRole('status')).toContainText('9 / 9');
+  await expect(page.getByRole('status')).toContainText('Hawl-qoraalka: la dhammeeyay');
   await page.screenshot({ path: 'screenshots/books-quiz.png', fullPage: true });
+});
+
+test('the book test shows one question per screen and never scrolls', async ({ page }) => {
+  const openQuiz = async () => {
+    await page.evaluate(() => localStorage.clear());
+    await page.goto('/#/books');
+    await page.reload();
+    await page.getByRole('button', { name: /Bilow akhriska/ }).first().click();
+    for (let i = 0; i < 4; i++) await page.getByRole('button', { name: /^Xiga/ }).click();
+    await page.getByRole('button', { name: /Tijaabada/ }).click();
+    await expect(page.locator('.bk-q-card')).toHaveCount(1);
+  };
+  for (const [w, h] of [[390, 844], [320, 568], [1280, 800]] as const) {
+    await page.setViewportSize({ width: w, height: h });
+    await openQuiz();
+    for (let n = 1; n <= 10; n++) {
+      // only ever one question card, and the whole screen never scrolls
+      await expect(page.locator('.bk-q-card')).toHaveCount(1);
+      await expect(page.getByText(`Su\u2019aasha ${n} / 10`)).toBeVisible();
+      const fit = await page.evaluate(() => {
+        const quiz = document.querySelector('.bk-quiz') as HTMLElement;
+        return {
+          page: document.documentElement.scrollHeight <= window.innerHeight + 1,
+          quiz: quiz.scrollHeight <= quiz.clientHeight + 1,
+        };
+      });
+      expect(fit.page, `page must not scroll at ${w}x${h} on question ${n}`).toBe(true);
+      expect(fit.quiz, `quiz must not scroll at ${w}x${h} on question ${n}`).toBe(true);
+      if (n < 10) {
+        await page.locator('.bk-option').first().click();
+        await page.getByRole('button', { name: /^Xiga/ }).click();
+      }
+    }
+    if (w === 390) await page.screenshot({ path: 'screenshots/books-quiz-mobile.png' });
+  }
 });
 
 test('progress persists after refresh and mastery needs the assessment', async ({ page }) => {
