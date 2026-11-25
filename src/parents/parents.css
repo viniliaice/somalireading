@@ -1,0 +1,79 @@
+/* Parent-facing homepage — baro. school identity (cream/amber/dark green). */
+
+.ph-page { min-height: 100vh; background: #fff7ea; color: #283d37; font-family: 'DM Sans', sans-serif; }
+.ph-page h1, .ph-page h2, .ph-page h3 { font-family: 'Nunito', sans-serif; }
+
+/* Header */
+.ph-header { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 12px max(16px, 4vw); background: rgba(255, 247, 234, 0.94); border-bottom: 2px solid #f0e3cd; }
+.ph-brand { display: flex; align-items: center; gap: 8px; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 19px; color: #283d37; text-decoration: none; }
+.ph-brand small { display: block; font-size: 10px; letter-spacing: 1.5px; color: #b0793c; font-weight: 700; }
+.ph-dot { color: #f28c28; }
+.ph-nav { display: flex; gap: 4px; margin-left: auto; }
+.ph-nav button { border: 0; background: transparent; padding: 9px 12px; border-radius: 11px; font: inherit; font-weight: 700; font-size: 14px; color: #283d37; cursor: pointer; }
+.ph-nav button:hover { background: #f7ecd9; }
+
+/* Buttons */
+.ph-btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; border: 2.5px solid #1c1917; border-radius: 13px; padding: 11px 18px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 15px; color: #283d37; background: #f6b93b; text-decoration: none; cursor: pointer; box-shadow: 3px 3px 0 rgba(28, 25, 23, 0.85); }
+.ph-btn:hover { transform: translateY(-1px); }
+.ph-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 rgba(28, 25, 23, 0.85); }
+.ph-btn.primary { background: #f6b93b; }
+.ph-btn.dark { background: #283d37; color: #fff7ea; }
+.ph-btn.ghost { background: #fff; }
+.ph-btn.small { padding: 8px 13px; font-size: 13.5px; }
+
+/* Hero */
+.ph-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; align-items: center; max-width: 1160px; margin: 0 auto; padding: clamp(26px, 6vh, 64px) max(16px, 4vw) 20px; }
+.ph-eyebrow { font-size: 11.5px; letter-spacing: 2px; font-weight: 800; color: #b0793c; margin: 0 0 10px; }
+.ph-eyebrow.center { text-align: center; }
+.ph-hero h1 { font-size: clamp(30px, 5vw, 52px); line-height: 1.12; margin: 0 0 12px; }
+.ph-hero h1 em { font-style: normal; color: #f28c28; }
+.ph-lead { font-size: clamp(16px, 1.6vw, 19px); line-height: 1.65; margin: 12px 0 20px; max-width: 54ch; }
+.ph-sub { color: #6b6257; font-size: 14.5px; line-height: 1.55; margin: 4px 0; }
+.ph-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* Covers collage */
+.ph-covers { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(108px, 100%), 1fr)); gap: 12px; }
+.ph-cover { margin: 0; border: 2.5px solid #1c1917; border-radius: 12px; overflow: hidden; background: #fdf9f1; box-shadow: 4px 5px 0 rgba(28, 25, 23, 0.25); }
+.ph-cover img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.ph-cover figcaption { font-size: 10.5px; font-weight: 700; padding: 5px 6px 6px; line-height: 1.2; }
+
+/* Sections */
+.ph-section { max-width: 1160px; margin: 0 auto; padding: clamp(28px, 5vh, 52px) max(16px, 4vw); }
+.ph-section h2 { font-size: clamp(24px, 3vw, 36px); text-align: center; margin: 0 0 6px; }
+.ph-section > .ph-sub { text-align: center; margin-bottom: 22px; }
+
+/* Features */
+.ph-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 16px; }
+.ph-feature { background: #fff; border: 2px solid #1c1917; border-radius: 16px; padding: 20px 20px 16px; box-shadow: 4px 5px 0 rgba(28, 25, 23, 0.18); }
+.ph-feature svg { color: #f28c28; }
+.ph-feature h3 { font-size: 18.5px; margin: 10px 0 6px; }
+.ph-feature p { font-size: 14.5px; line-height: 1.55; margin: 0 0 4px; }
+
+/* Pricing */
+.ph-pricing-section { padding-top: clamp(10px, 2vh, 24px); }
+.ph-plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 18px; max-width: 860px; margin: 0 auto; }
+.ph-plan { display: flex; flex-direction: column; background: #fff; border: 2.5px solid #1c1917; border-radius: 18px; padding: 24px 24px 22px; box-shadow: 5px 6px 0 rgba(28, 25, 23, 0.2); }
+.ph-plan.featured { background: #f6b93b; box-shadow: 6px 7px 0 rgba(28, 25, 23, 0.85); }
+.ph-badge { align-self: flex-start; margin: 0 0 10px; background: #283d37; color: #fff7ea; border-radius: 999px; padding: 4px 12px; font-size: 11.5px; font-weight: 800; letter-spacing: 0.6px; }
+.ph-plan h3 { font-size: 21px; margin: 0 0 2px; }
+.ph-plan-en { color: #6b6257; font-size: 13.5px; margin: 0 0 12px; }
+.ph-plan.featured .ph-plan-en { color: #5c4a1e; }
+.ph-price { font-family: 'Nunito', sans-serif; font-size: 46px; font-weight: 900; margin: 0 0 14px; line-height: 1; }
+.ph-plan ul { list-style: none; margin: 0 0 20px; padding: 0; display: grid; gap: 9px; }
+.ph-plan li { display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; line-height: 1.45; }
+.ph-plan li svg { flex-shrink: 0; margin-top: 2px; }
+.ph-plan .ph-btn { margin-top: auto; }
+
+/* Footer */
+.ph-footer { text-align: center; padding: 26px 16px 34px; border-top: 2px solid #f0e3cd; }
+.ph-footer p { margin: 4px 0; font-size: 14px; letter-spacing: 1px; }
+.ph-note { color: #6b6257; font-size: 12.5px !important; letter-spacing: 0 !important; }
+
+@media (max-width: 860px) {
+  .ph-hero { grid-template-columns: 1fr; }
+  .ph-covers { grid-template-columns: repeat(auto-fill, minmax(min(96px, 100%), 1fr)); }
+}
+@media (max-width: 560px) {
+  .ph-nav { order: 3; width: 100%; margin-left: 0; }
+  .ph-header .ph-btn.small { margin-left: auto; }
+}

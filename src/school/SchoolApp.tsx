@@ -71,7 +71,7 @@ export function SchoolApp() {
   }, []);
 
   const navigate = useCallback((r: Route) => {
-    const hash = r.name === 'home' ? '#/' : r.name === 'stage' ? `#/stage/${r.stageId}` : r.name === 'lesson' ? `#/lesson/${r.lessonId}` : r.name === 'book' ? `#/book/${r.bookId}` : r.name === 'dashboard' ? '#/dashboard' : `#/${r.name}`;
+    const hash = r.name === 'home' ? '#/dugsi' : r.name === 'stage' ? `#/stage/${r.stageId}` : r.name === 'lesson' ? `#/lesson/${r.lessonId}` : r.name === 'book' ? `#/book/${r.bookId}` : r.name === 'dashboard' ? '#/dashboard' : `#/${r.name}`;
     if (window.location.hash !== hash) window.location.hash = hash;
     else setRoute(r);
     setNavOpen(false);

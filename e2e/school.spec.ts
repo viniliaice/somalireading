@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/#/dugsi');
   await page.evaluate(() => localStorage.clear());
   await page.reload();
 });
@@ -101,7 +101,7 @@ test('school progress survives refresh and does not touch phonics progress', asy
 test('school layout fits desktop, tablet and mobile with no overflow', async ({ page }) => {
   for (const size of [{ width: 1440, height: 1000 }, { width: 768, height: 1024 }, { width: 390, height: 844 }, { width: 320, height: 700 }]) {
     await page.setViewportSize(size);
-    await page.goto('/');
+    await page.goto('/#/dugsi');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `home at ${size.width}`).toBe(true);
     await page.getByRole('button', { name: /Heerka 2 — Erayo iyo Weedho/ }).click();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `stage at ${size.width}`).toBe(true);
