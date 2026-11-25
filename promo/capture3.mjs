@@ -1,0 +1,21 @@
+import { chromium as pwChromium } from 'playwright';
+import sparticuz from '@sparticuz/chromium';
+const OUT = 'promo/assets/site';
+const browser = await pwChromium.launch({ executablePath: await sparticuz.executablePath(), args: ['--no-sandbox', '--disable-gpu'] });
+const ctx = await browser.newContext({ deviceScaleFactor: 2 });
+const page = await ctx.newPage();
+const shot = async (name, hash, vp = { width: 1280, height: 900 }) => {
+  await page.setViewportSize(vp);
+  await page.goto('http://127.0.0.1:5173/' + hash, { waitUntil: 'networkidle' });
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.evaluate(() => document.querySelectorAll('.rv').forEach(el => el.classList.add('in')));
+  await page.evaluate(() => Promise.race([Promise.all(Array.from(document.images).map(i => i.decode().catch(() => undefined))), new Promise(r => setTimeout(r, 5000))]));
+  await page.waitForTimeout(600);
+  await page.screenshot({ path: `${OUT}/${name}.png` });
+  console.log('captured', name, '|', (await page.title()).slice(0, 40));
+};
+await shot('letters-unit', '#/xaraf?view=unit&unit=1');
+await shot('stage-1', '#/stage/stage-1', { width: 1280, height: 1000 });
+await shot('lesson', '#/lesson/s1-m2-l1', { width: 1280, height: 1000 });
+await shot('letters-home', '#/xaraf');
+await browser.close();
