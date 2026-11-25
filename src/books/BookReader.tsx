@@ -6,12 +6,13 @@ import type { StoryBook, BookWord } from './types';
 import type { BooksProgress } from './progress';
 import { bookMastery, markPageRead, markWordsSeen } from './progress';
 import { bookAudioById } from './audio';
+import { cleanToken, glossaryFor, TOKEN_PUNCT } from './glossary';
 import { BookImage } from './BookImage';
 import { BookQuiz } from './BookQuiz';
 
 type View = { kind: 'page'; n: 1 | 2 | 3 | 4 | 5 } | { kind: 'quiz' };
 
-const PUNCT = /[.,!?"«»—–:;()…]/g;
+const PUNCT = TOKEN_PUNCT;
 
 function WordToken({ token, word, seen, active, onPick }: {
   token: string;
@@ -80,6 +81,9 @@ export function BookReader({ book, progress, onBack, onProgress, onOpenBooks }: 
   const page = view.kind === 'page' ? book.pages[view.n - 1] : undefined;
   const wordsBySo = useMemo(() => new Map(book.words.map(w => [w.so.toLowerCase(), w])), [book.words]);
   const mastery = bookMastery(progress, book);
+  /** Words outside the book's taught list still get an English meaning from the glossary. */
+  const pickedGloss = picked && !picked.word ? glossaryFor(picked.token) : undefined;
+  const meaning = picked ? (picked.word ? picked.word.en : pickedGloss?.en) : undefined;
 
   const pickWord = (token: string, word?: BookWord) => {
     setShowEn(false);
@@ -189,28 +193,18 @@ export function BookReader({ book, progress, onBack, onProgress, onOpenBooks }: 
 
       {picked && (
         <div className="bk-popover" role="dialog" aria-label="Macluumaadka erayga">
-          <h4>{picked.token.replace(PUNCT, '')}</h4>
-          {picked.word ? (
-            <>
-              <div className="bk-graphemes" aria-label="Qaybaha dhawaaqa">
-                {tokenize(picked.token.replace(PUNCT, '')).map((g, i) => <span key={i}>{g}</span>)}
-              </div>
-              {showEn && <p className="bk-en" lang="en">{picked.word.en}</p>}
-              {picked.word.noteSo && <p className="bk-note">{picked.word.noteSo}</p>}
-            </>
-          ) : (
-            <>
-              <p className="bk-en">Eray aasaasi ah</p>
-              <div className="bk-graphemes" aria-label="Qaybaha dhawaaqa">
-                {tokenize(picked.token.replace(PUNCT, '')).map((g, i) => <span key={i}>{g}</span>)}
-              </div>
-              <p className="bk-note">
-                {showEn
-                  ? 'Turjumaadda Ingiriisiga eraygan weli lama hayo — waydii macallinkaaga.'
-                  : 'Macnaha eraygan weli lama darin. Waydii macallinkaaga.'}
-              </p>
-            </>
+          <h4>{cleanToken(picked.token)}</h4>
+          <div className="bk-graphemes" aria-label="Qaybaha dhawaaqa">
+            {tokenize(cleanToken(picked.token)).map((g, i) => <span key={i}>{g}</span>)}
+          </div>
+          {showEn && meaning && <p className="bk-en" lang="en">{meaning}</p>}
+          {showEn && !meaning && (
+            <p className="bk-note">Turjumaadda Ingiriisiga eraygan weli lama hayo — waydii macallinkaaga.</p>
           )}
+          {!showEn && !meaning && (
+            <p className="bk-note">Macnaha eraygan weli lama darin. Waydii macallinkaaga.</p>
+          )}
+          {picked.word?.noteSo && <p className="bk-note">{picked.word.noteSo}</p>}
           <div className="bk-popover-row">
             <button
               className="bk-btn small secondary"

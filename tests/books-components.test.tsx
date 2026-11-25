@@ -35,7 +35,23 @@ describe('book reader', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Erayga Ayaanle' }));
     // popover opens with a phonics-safe pronunciation reference (grapheme tiles, no fake audio)
     expect(screen.getByRole('dialog', { name: 'Macluumaadka erayga' })).toBeTruthy();
-    expect(screen.getByText('Eray aasaasi ah')).toBeTruthy();
+    // a personal name is described as a name, and only in English on request
+    expect(screen.queryByText(/boy.s name/)).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: /Ingiriisi/ }));
+    expect(screen.getByText(/boy.s name/)).toBeTruthy();
+  });
+
+  it('gives an English meaning for words outside the taught vocabulary', () => {
+    const book = books[4];
+    const pageIdx = book.pages.findIndex(p => p.sentencesSo.some(text => text.split(/\s+/).some(t => t.replace(/[.,!?"«»—–:;()…]/g, '').toLowerCase() === 'marka')));
+    expect(pageIdx, 'book 5 should contain "marka"').toBeGreaterThan(-1);
+    render(<BookReader book={book} progress={emptyBooksProgress()} onBack={() => {}} onProgress={() => {}} onOpenBooks={() => {}} />);
+    for (let i = 0; i < pageIdx; i++) fireEvent.click(screen.getByRole('button', { name: /^Xiga/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Erayga marka' }));
+    // grammar words are translated too — but only when asked
+    expect(screen.queryByText(/when \/ then/)).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: /Ingiriisi/ }));
+    expect(screen.getByText(/when \/ then/)).toBeTruthy();
   });
 
   it('opens a vocabulary meaning and marks the word as seen', () => {

@@ -23,7 +23,10 @@ test('a book opens with story text, word help and page navigation', async ({ pag
   // tap a word → meaning panel with phonics-safe grapheme reference
   await page.getByRole('button', { name: 'Erayga Ayaanle', exact: true }).click();
   await expect(page.getByRole('dialog', { name: 'Macluumaadka erayga' })).toBeVisible();
-  await expect(page.getByText('Eray aasaasi ah')).toBeVisible();
+  // a name is explained as a name, not invented as vocabulary
+  await expect(page.getByText(/boy.s name/)).toHaveCount(0);
+  await page.getByRole('button', { name: 'Ingiriisi' }).click();
+  await expect(page.getByText(/boy.s name/)).toBeVisible();
   await page.getByRole('button', { name: 'Xir' }).click();
   // next page + vocabulary meaning
   await page.getByRole('button', { name: /^Xiga/ }).click();
