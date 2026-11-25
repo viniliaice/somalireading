@@ -10,6 +10,7 @@ import {worldScenes} from './world';
 import CulturalSection from './modules/CulturalSection';
 import SchoolApp from './school/SchoolApp';
 import ParentsHome from './parents/ParentsHome';
+import InfoPage from './parents/InfoPage';
 const StoryScene = lazy(() => import('./StoryScene'));
 import '@fontsource/dm-sans/latin-400.css';
 import '@fontsource/dm-sans/latin-700.css';
@@ -68,6 +69,6 @@ function StoryPage({onBack}:{onBack:()=>void}){
  return <div className="content inner-page"><button className="back" onClick={onBack}><ArrowLeft size={17}/> Bogga hore</button><div className="eyebrow">✦ AAN SAHAMINNO</div><h1>Maxaa halkan jooga?</h1><p className="page-intro">Taabo sawir ama isticmaal badhamada si aad eray u ogaato.</p><div className="case-buttons world-tabs">{worldScenes.map(s=><button key={s.id} className={sceneId===s.id?'selected':''} onClick={()=>{setSceneId(s.id);setFound(null)}}>{s.title}</button>)}</div><div className="activity-card story-card"><h2>{scene.title}</h2><p>{scene.description}</p><Suspense fallback={<div className="scene">Soo raraya...</div>}><StoryScene sceneId={sceneId} onDiscover={discover}/></Suspense><div className="world-buttons">{scene.objects.map(g=>{const l=byG(g);return <button className="outline" key={g} onClick={()=>discover(g)}><Emoji symbol={l.emoji}/> {g==='n'?'Taabo nalka':l.word}</button>})}</div>{letter&&<div className="story-answer"><div className="sound-tiles">{tiles.map((t,i)=><SoundTile key={i} sound={t} active={i===highlight} label={t.toUpperCase()}/>)}</div><h2>{letter.word[0].toUpperCase()+letter.word.slice(1)}</h2><p>{letter.meaning}</p><AudioButton path={letter.wordAudio} label="Dhagayso erayga"/></div>}</div><p className="notice"><CircleHelp size={16}/> Codadka aan la ansixin lama ciyaarayo. Duubis iyo dib-u-eegis ayaa loo baahan yahay.</p></div>
 }
 
-function Root(){const [hash,setHash]=useState(()=>window.location.hash);useEffect(()=>{const f=()=>setHash(window.location.hash);window.addEventListener('hashchange',f);return()=>window.removeEventListener('hashchange',f)},[]);if(hash.startsWith('#/xaraf'))return <App/>;if(hash===''||hash==='#'||hash==='#/')return <ParentsHome/>;return <SchoolApp/>;}
+function Root(){const [hash,setHash]=useState(()=>window.location.hash);useEffect(()=>{const f=()=>setHash(window.location.hash);window.addEventListener('hashchange',f);return()=>window.removeEventListener('hashchange',f)},[]);if(hash.startsWith('#/xaraf'))return <App/>;if(hash===''||hash==='#'||hash==='#/')return <ParentsHome/>;if(hash.startsWith('#/privacy')||hash.startsWith('#/terms')||hash.startsWith('#/help'))return <InfoPage route={hash}/>;return <SchoolApp/>;}
 const root = document.getElementById('root');
 if(root) createRoot(root).render(<React.StrictMode><Root/></React.StrictMode>);
