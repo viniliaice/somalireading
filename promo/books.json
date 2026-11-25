@@ -1,0 +1,362 @@
+[
+ {
+  "id": "b01",
+  "order": 1,
+  "titleSo": "Salaan, saaxiib!",
+  "titleEn": "Hello, friend!",
+  "cover": "/books/book-01-salaan-saaxiib/cover.jpg",
+  "levelLabelSo": "Bilowga eberka",
+  "descriptionSo": "Ayaanle wuxuu la kulmaa wiil cusub. Waxay is salaamaan, magacyadooda way sheegaan, waxayna noqdaan saaxiibbo.",
+  "pages": [
+   {
+    "n": 1,
+    "image": "/books/book-01-salaan-saaxiib/page-01.jpg",
+    "text": "Waa subax cusub. Ayaanle wuu baxay. Wuxuu arkay wiil cusub."
+   },
+   {
+    "n": 2,
+    "image": "/books/book-01-salaan-saaxiib/page-02.jpg",
+    "text": "— As-salaamu calaykum! — Wa calaykumu salaam! Waa salaan wanaagsan."
+   },
+   {
+    "n": 3,
+    "image": "/books/book-01-salaan-saaxiib/page-03.jpg",
+    "text": "— Magacaa? — Magacaygu waa Cabdi. — Anigana magacaygu waa Ayaanle."
+   },
+   {
+    "n": 4,
+    "image": "/books/book-01-salaan-saaxiib/page-04.jpg",
+    "text": "— Sidee tahay? — Waan fiicanahay, mahadsanid. — Ma daallan tahay? — Maya, maya!"
+   },
+   {
+    "n": 5,
+    "image": "/books/book-01-salaan-saaxiib/page-05.jpg",
+    "text": "— Aan saaxiib noqonno! — Haa! Ayaanle iyo Cabdi hadda waa saaxiibbo."
+   }
+  ]
+ },
+ {
+  "id": "b02",
+  "order": 2,
+  "titleSo": "Qoyskeyga",
+  "titleEn": "My family",
+  "cover": "/books/book-02-qoyskeyga/cover.jpg",
+  "levelLabelSo": "Bilowe",
+  "descriptionSo": "Ayaanle wuxuu noo sheegayaa qoyskiisa: hooyo, aabbe, walaallo, awoowe iyo ayeeyo. Waa qoys jecel oo wada jira.",
+  "pages": [
+   {
+    "n": 1,
+    "image": "/books/book-02-qoyskeyga/page-01.jpg",
+    "text": "Kani waa qoyskayga. Qoyskaygu waa weyn yahay. Waxaan nahay toddoba qof."
+   },
+   {
+    "n": 2,
+    "image": "/books/book-02-qoyskeyga/page-02.jpg",
+    "text": "Tani waa hooyaday. Magaceedu waa Maryan. Kan waa aabbahay. Magaciisu waa Cabdiraxmaan. Hooyo iyo aabbe way is jecel yihiin."
+   },
+   {
+    "n": 3,
+    "image": "/books/book-02-qoyskeyga/page-03.jpg",
+    "text": "Walaashay magaceedu waa Hodan. Way akhrisaa buug. Walaalkaygu waa ilmo yar. Magaciisu waa Ismaaciil. Isagu wuxuu ciyaaraa kubbad yar."
+   },
+   {
+    "n": 4,
+    "image": "/books/book-02-qoyskeyga/page-04.jpg",
+    "text": "Awoowgay iyo ayeeyaday way nagu nool yihiin. Awoowe wuxuu noo sheegaa sheekooyin. Ayeeyo way cunto karisaa."
+   },
+   {
+    "n": 5,
+    "image": "/books/book-02-qoyskeyga/page-05.jpg",
+    "text": "Cashada waan wada cunnaa. Waan sheekaysannaa, waana qosolnaa. Qoysku waa farxaddeenna. Ilmo kasta wuxuu jecel yahay gurigiisa."
+   }
+  ]
+ },
+ {
+  "id": "b03",
+  "order": 3,
+  "titleSo": "Gurigayga",
+  "titleEn": "My home",
+  "cover": "/books/book-03-gurigayga/cover.jpg",
+  "levelLabelSo": "Bilowe",
+  "descriptionSo": "Hodan waxay noo tusisaa gurigooda: qolka fadhiga, jikada iyo qolka hurdada. Wax baro magacyada alaabta guriga.",
+  "pages": [
+   {
+    "n": 1,
+    "image": "/books/book-03-gurigayga/page-01.jpg",
+    "text": "Kani waa gurigayaga. Gurigayagu waa weyn yahay. Wuxuu leeyahay albaab iyo daaqado."
+   },
+   {
+    "n": 2,
+    "image": "/books/book-03-gurigayga/page-02.jpg",
+    "text": "Kani waa qolka fadhiga. Waxaa jira miis iyo kursiyo. Qoysku wuxuu ku sheekaysanayaa halkan."
+   },
+   {
+    "n": 3,
+    "image": "/books/book-03-gurigayga/page-03.jpg",
+    "text": "Kani waa jikada. Hooyo waxay halkan karisaa cunto. Cuntuadu way ur wanaagsan tahay."
+   },
+   {
+    "n": 4,
+    "image": "/books/book-03-gurigayga/page-04.jpg",
+    "text": "Kani waa qolka hurdada. Waxaa jira sariir iyo buste. Habeennada halkan waan hurudnaa."
+   },
+   {
+    "n": 5,
+    "image": "/books/book-03-gurigayga/page-05.jpg",
+    "text": "Gurigu waa meel nabad ah. Waxaan ku cunnaa, ku hurudnaa, waana ku ciyaarnaa. Gurigayaga waan jeclahay."
+   }
+  ]
+ },
+ {
+  "id": "b04",
+  "order": 4,
+  "titleSo": "Dugsigayga",
+  "titleEn": "My school",
+  "cover": "/books/book-04-dugsigayga/cover.jpg",
+  "levelLabelSo": "Bilowe ilaa akhriste koraya",
+  "descriptionSo": "Maalin dugsiga ka mid ah: Ayaanle wuu toosaa, wuxuu tagayaa dugsiga, wuxuu akhrinayaa oo qorayaa, wuxuuna ciyaarayaa saaxiibbadiis.",
+  "pages": [
+   {
+    "n": 1,
+    "image": "/books/book-04-dugsigayga/page-01.jpg",
+    "text": "Subaxdii Ayaanle wuu toosaa. Wuxuu cunaa quraac. Ayaanle waa arday. Wuxuu qaataa buug iyo qalin."
+   },
+   {
+    "n": 2,
+    "image": "/books/book-04-dugsigayga/page-02.jpg",
+    "text": "Ayaanle wuxuu tagayaa dugsiga. — Subax wanaagsan, macallin! — Soo dhowoow, Ayaanle! Waa fasal wanaagsan."
+   },
+   {
+    "n": 3,
+    "image": "/books/book-04-dugsigayga/page-03.jpg",
+    "text": "Fasalka waxaan akhrinnaa buugga. Waxaan qoreynaa xarfaha. Macallinku wuxuu ina bartaa erayo cusub. Waxbarashadu way fiican tahay."
+   },
+   {
+    "n": 4,
+    "image": "/books/book-04-dugsigayga/page-04.jpg",
+    "text": "Nasashada waan ciyaarnaa. Waxaan kubbad ciyaarnaa saaxiibbaday. — Aan isku koox ahaanno! Waan faraxsan nahay."
+   },
+   {
+    "n": 5,
+    "image": "/books/book-04-dugsigayga/page-05.jpg",
+    "text": "Guriga marka la noqdo, Ayaanle wuxuu hooyadii u sheegaa maalintiisa. — Maanta waxaan bartay erayo cusub! Hooyo way dhoola-caddaynaysaa. — Waad fiican tahay, wiilkayga!"
+   }
+  ]
+ },
+ {
+  "id": "b05",
+  "order": 5,
+  "titleSo": "Suuqa",
+  "titleEn": "The market",
+  "cover": "/books/book-05-suuqa/cover.jpg",
+  "levelLabelSo": "Bilowe koraya",
+  "descriptionSo": "Qoysku wuxuu tagayaa suuqa. Waxay arkaan khudaar iyo miro, waxay weydiiyaan qiimaha, waxayna iibsadaan waxa ay u baahan yihiin.",
+  "pages": [
+   {
+    "n": 1,
+    "image": "/books/book-05-suuqa/page-01.jpg",
+    "text": "Axaddii qoysku wuxuu tagay suuqa. Suuqu waa mashquul. Dad badan ayaa jooga. Waxaan rabnaa inaan wax iibsanno."
+   },
+   {
+    "n": 2,
+    "image": "/books/book-05-suuqa/page-02.jpg",
+    "text": "Suuqa waxaa jira khudaar iyo moos. Tufaax cas ayaa jira. Moos macaan ayaa jira. — Eeg khudaarta, hooyo!"
+   },
+   {
+    "n": 3,
+    "image": "/books/book-05-suuqa/page-03.jpg",
+    "text": "— Qiimaha mooska waa immisa? — Moosku waa shan. — Tufaaxuna? — Waa toban. Qiimaha waan ognahay hadda."
+   },
+   {
+    "n": 4,
+    "image": "/books/book-05-suuqa/page-04.jpg",
+    "text": "Hooyo waxay bixisay lacag. Ganacsadihii wuxuu siiyay khudaar, moos iyo caano. — Mahadsanid! Waxaan helnay wax kasta oo aan u baahnayn."
+   },
+   {
+    "n": 5,
+    "image": "/books/book-05-suuqa/page-05.jpg",
+    "text": "Guriga marka la noqdo, waxaan dhignay waxyaabihii. — Suuqu waa meel wanaagsan! ayuu yidhi Ayaanle. Cuntada cusub waa macaan."
+   }
+  ]
+ },
+ {
+  "id": "b06",
+  "order": 6,
+  "titleSo": "Xayawaanka",
+  "titleEn": "The animals",
+  "cover": "/books/book-06-xayawaanka/cover.jpg",
+  "levelLabelSo": "Akhriste koraya",
+  "descriptionSo": "Qoysku wuxuu booqdaa beerta xayawaanka. Waxay arkaan geel, ari, ido, libaax, geri, faras iyo yaxaas. Waxay bartaan in xayawaanku u baahan yihiin daryeel.",
+  "pages": [
+   {
+    "n": 1,
+    "image": "/books/book-06-xayawaanka/page-01.jpg",
+    "text": "Maalin fiican, qoysku wuxuu tagay beerta xayawaanka. Waxay arkeen xayawaanno badan. Carruurtu way farxeen. — Eeg, xayawaanno badan!"
+   },
+   {
+    "n": 2,
+    "image": "/books/book-06-xayawaanka/page-02.jpg",
+    "text": "Waxay arkeen geel. Geelu wuu dhaadheer yahay. Wuxuu cunaa caws iyo caleen. Laba geel ayaa jira: mid waa weyn, midna waa yar."
+   },
+   {
+    "n": 3,
+    "image": "/books/book-06-xayawaanka/page-03.jpg",
+    "text": "Waxay arkeen ari iyo ido. Arigu wuxuu cunaa caleen. Iduuna waa yar tahay oo waa cad tahay. Ari badan iyo ido badan ayaa halkaas jooga."
+   },
+   {
+    "n": 4,
+    "image": "/books/book-06-xayawaanka/page-04.jpg",
+    "text": "Waxay sidoo kale arkeen libaax weyn oo xoog badan. Geri dhaadheer ayaa ag taagan. Faras orod badan ayaa dhinaca ka socda. Agagaarka biyaha waxaa fadhiya yaxaas weyn."
+   },
+   {
+    "n": 5,
+    "image": "/books/book-06-xayawaanka/page-05.jpg",
+    "text": "Xayawaanku waxay u baahan yihiin daryeel. — Waa inaan u naxariisannaa xayawaanka, ayuu yidhi aabbihii. — Waxay yihiin saaxiibbadayaga. Carruurtu way ku laabteen guriga iyagoo faraxsan."
+   }
+  ]
+ },
+ {
+  "id": "b07",
+  "order": 7,
+  "titleSo": "Maalin roobaad",
+  "titleEn": "A rainy day",
+  "cover": "/books/book-07-maalin-roobaad/cover.jpg",
+  "levelLabelSo": "Akhriste koraya",
+  "descriptionSo": "Daruuro mugdi ah ayaa yimaada, roob baa da’aya, carruurtuna guriga bay joogaan. Marka qorraxdu soo baxdo, way dib u baxaan.",
+  "pages": [
+   {
+    "n": 1,
+    "image": "/books/book-07-maalin-roobaad/page-01.jpg",
+    "text": "Subaxdii, daruuro mugdi ah ayaa yimaadeen samada. Cirku wuu madow yahay. Dabayl ayaa bilaabatay. — Roob baa soo socda!"
+   },
+   {
+    "n": 2,
+    "image": "/books/book-07-maalin-roobaad/page-02.jpg",
+    "text": "Roobkii wuu bilaabmay. Biyo ayaa ka da’ay samada. Dhulku wuu qoyay. — Eeg roobka! Waa qurux badan."
+   },
+   {
+    "n": 3,
+    "image": "/books/book-07-maalin-roobaad/page-03.jpg",
+    "text": "Carruurtu guriga bay galeen. Waxay xirteen dhar diirran. — Ma bixi karno hadda. Waxay fadhiisteen qolka fadhiga."
+   },
+   {
+    "n": 4,
+    "image": "/books/book-07-maalin-roobaad/page-04.jpg",
+    "text": "Waxay dhegaysteen codka roobka. Ayeeyo way sheegtay sheeko: — Maalin hore roob baa da’ay… Carruurtu way dhegaysteen. Gudaha waa diirran yahay."
+   },
+   {
+    "n": 5,
+    "image": "/books/book-07-maalin-roobaad/page-05.jpg",
+    "text": "Roobkii wuu joogsaday. Qorraxdii way soo baxday. Cirkii wuu caddaatay. — Waa qorrax! Aan baxno! Cimiladu hadda way fiican tahay."
+   }
+  ]
+ },
+ {
+  "id": "b08",
+  "order": 8,
+  "titleSo": "Socodka magaalada",
+  "titleEn": "A walk through town",
+  "cover": "/books/book-08-socodka-magaalada/cover.jpg",
+  "levelLabelSo": "Bilowe dhexe",
+  "descriptionSo": "Asma iyo walaalkeed Maxamed waxay ku socdaan magaalada: dugsiga, suuqa iyo maktabadda. Waa sheeko isku xidhan oo dhammaystiran.",
+  "pages": [
+   {
+    "n": 1,
+    "image": "/books/book-08-socodka-magaalada/page-01.jpg",
+    "text": "Subaxdii hore, Asma iyo walaalkeed Maxamed way baxeen. Waxay ka soo baxeen xaafaddooda, waxayna ku socdeen magaalada. — Aan aragno magaalada! ayay tidhi Asma."
+   },
+   {
+    "n": 2,
+    "image": "/books/book-08-socodka-magaalada/page-02.jpg",
+    "text": "Ugu horrayn waxay mareen dugsiga. — Kani waa dugsigayaga! ayay tidhi Asma. Ardaydu fasallada bay akhrinayeen. Macallinku wuxuu salaamay."
+   },
+   {
+    "n": 3,
+    "image": "/books/book-08-socodka-magaalada/page-03.jpg",
+    "text": "Waddada waxaa jira isbitaal iyo masaajid weyn. Ka dibna waxay mareen suuqa. Dukaanno badan ayaa jira. Dadku waxay gadayeen khudaar iyo dharka. — Suuqu waa mashquul!"
+   },
+   {
+    "n": 4,
+    "image": "/books/book-08-socodka-magaalada/page-04.jpg",
+    "text": "Waxay tageen maktabadda. Maktabaddu waxay leedahay buugo badan. — Halkan waxaan ka akhrin karnaa sheekooyin! ayuu yidhi Maxamed. Agaasimihii wuxuu yidhi: — Soo dhowoow!"
+   },
+   {
+    "n": 5,
+    "image": "/books/book-08-socodka-magaalada/page-05.jpg",
+    "text": "Guriga markay noqdeen, waxay hooyadii u shegeen socodkoodii. — Waxaan aragnay dugsiga, suuqa iyo maktabadda! — Magaaladu way qurux badan tahay! ayay tidhi hooyo. — Hadda waan og nahay waddooyinka."
+   }
+  ]
+ },
+ {
+  "id": "b09",
+  "order": 9,
+  "titleSo": "Maalin aan la illaabi karin",
+  "titleEn": "A day to remember",
+  "cover": "/books/book-09-maalin-aan-la-illaabi-karin/cover.jpg",
+  "levelLabelSo": "Dhexe",
+  "descriptionSo": "Faaduma iyo qoyskeeda waxay booqdaan qaraabadooda. Waxay la kulmaan saaxiibbo hore, waxayna caawiyaan ilmo lumay — maalin xusuus leh.",
+  "pages": [
+   {
+    "n": 1,
+    "image": "/books/book-09-maalin-aan-la-illaabi-karin/page-01.jpg",
+    "text": "Subaxdii hore, Faaduma way toostay. Maanta waa maalin gaar ah — qoysku safar ayuu baxayaa. Waxay diyaarisay dharka iyo hadiyadaha. — Waan faraxsanahay! ayay tidhi iyada oo dhoola-caddaynaysa."
+   },
+   {
+    "n": 2,
+    "image": "/books/book-09-maalin-aan-la-illaabi-karin/page-02.jpg",
+    "text": "Waxay raaceen gaadiid dheer. Safarku wuu dheeraa, waddaduna waxay martay dhul cagaaran. Waxay tageen guriga qaraabadooda. — Soo dhowoow! ayay yidhaahdeen qaraabadii. Waa booqasho la sugayay."
+   },
+   {
+    "n": 3,
+    "image": "/books/book-09-maalin-aan-la-illaabi-karin/page-03.jpg",
+    "text": "Halkaas waxay la kulmeen saaxiibbo hore. — Imisa sano ayaa la kala maqnaa! ayay yidhi wiilkii. Waxay xusuusteen maalmihii hore, waxayna sheekaysteen saacado. Waa farxad iyo qosol."
+   },
+   {
+    "n": 4,
+    "image": "/books/book-09-maalin-aan-la-illaabi-karin/page-04.jpg",
+    "text": "Markaas dhacdo lama filaan ah ayaa dhacday: ilmo yar ayaa lumay. Qoyskii wuu ka walwalay. — Anagaa raadnaynaa! ayay tidhi Faaduma. Iyada iyo saaxiibbadeed ayaa hareeraha raadiyay. Ugu dambayntii way heleen. — Waan helnay!"
+   },
+   {
+    "n": 5,
+    "image": "/books/book-09-maalin-aan-la-illaabi-karin/page-05.jpg",
+    "text": "Habeennkii, waxay ku noqdeen guriga iyagoo faraxsan. — Maanta waa maalin aan la illaabi karin, ayuu yidhi aabbihii. Xusuus wanaagsan bay qalbigooda ku hayaan."
+   }
+  ]
+ },
+ {
+  "id": "b10",
+  "order": 10,
+  "titleSo": "Nabad iyo wadajir",
+  "titleEn": "Peace and togetherness",
+  "cover": "/books/book-10-nabad-iyo-wadajir/cover.jpg",
+  "levelLabelSo": "Bilowe madaxbannaan",
+  "descriptionSo": "Carruur kala duwan ayaa isugu timaada barxad weyn. Waxay wada shaqeeyaan, bulshadooda way caawiyaan, waxayna bartaan in nabadu ka bilaabanto sida aan isu tixgelinno.",
+  "pages": [
+   {
+    "n": 1,
+    "image": "/books/book-10-nabad-iyo-wadajir/page-01.jpg",
+    "text": "Axaddii, carruur badan ayaa isugu timid barxad weyn. Waxay ka kala yimaadeen qoysas kala duwan. — Salaan, saaxiibbo! Waa maalin cusub oo wadajir ah."
+   },
+   {
+    "n": 2,
+    "image": "/books/book-10-nabad-iyo-wadajir/page-02.jpg",
+    "text": "Mid kastaa wuxuu lahaa sheeko kala duwan. — Anigu waxaan ka yimid magaalo xeebeed, ayuu yidhi Cali. — Aniguna waxaan ka yimid miyi, ayay tidhi Hodan. Waxay ogaadeen in qof kastaa leeyahay waayo-aragnimo gaar ah. — Midnimadu waa qurux."
+   },
+   {
+    "n": 3,
+    "image": "/books/book-10-nabad-iyo-wadajir/page-03.jpg",
+    "text": "Markaas dhib ayaa yimid: dayrkii barxadda ayaa jabay. — Qof keliya ma xallin karo, ayay yidhi Cali. — Aan wada-shaqayno! Waxay wada qaateen dhagaxa iyo alaabta. Ka dib way hagaajiyeen."
+   },
+   {
+    "n": 4,
+    "image": "/books/book-10-nabad-iyo-wadajir/page-04.jpg",
+    "text": "Waxay go’aansadeen inay caawiyaan bulshadooda. Waxay nadiifiyeen waddooyinka. Waxay caawiyeen odayaasha iyo ilmaha yaryar. — Caawimadu waa bilowga nabadgelyada."
+   },
+   {
+    "n": 5,
+    "image": "/books/book-10-nabad-iyo-wadajir/page-05.jpg",
+    "text": "Habeennkii waxay fadhiisteen hoosta geedka. — Nabadu ma bilaabanto dagaal. Waxay bilaabantaa sida aan isu tixgelinno, ayuu yidhi odaygii. — Wadajir, ixtiraam, caddaalad iyo jacayl — taasi waa midnimo. Carruurtu way qosleen. — Nabad iyo wadajir!"
+   }
+  ]
+ }
+]

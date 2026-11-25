@@ -1,0 +1,23 @@
+{
+  "title": "SomaliReading — heritage, stories, learning",
+  "canvas": {"horizontal": [1920, 1080], "vertical": [1080, 1920]},
+  "frameRate": 20,
+  "master": [
+    {"scene": "open", "start": 0, "duration": 5, "intent": "A → AF → AF-SOOMAALI, warm heritage opening"},
+    {"scene": "brand", "start": 5, "duration": 7, "intent": "SomaliReading identity and promise"},
+    {"scene": "skills", "start": 12, "duration": 11, "intent": "DHAGAYSI / HADAL / AKHRIS / QORIS"},
+    {"scene": "books", "start": 23, "duration": 9, "intent": "Illustrated reading, 10 Somali stories"},
+    {"scene": "culture", "start": 32, "duration": 7, "intent": "Language, culture, literature; Hadraawi module"},
+    {"scene": "price", "start": 39, "duration": 12, "intent": "Website Access $5.99 / Website Access + Lessons $25"},
+    {"scene": "cta", "start": 51, "duration": 9, "intent": "Start today; exact website address and logo"}
+  ],
+  "cutdown": [
+    {"scene": "open", "start": 0, "duration": 2},
+    {"scene": "brand", "start": 2, "duration": 3},
+    {"scene": "skills", "start": 5, "duration": 3},
+    {"scene": "books", "start": 8, "duration": 2},
+    {"scene": "price", "start": 10, "duration": 2},
+    {"scene": "cta", "start": 12, "duration": 3}
+  ],
+  "transitions": {"type": "cream crossfade", "durationSeconds": 0.22}
+}
