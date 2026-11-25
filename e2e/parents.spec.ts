@@ -39,11 +39,18 @@ test('all navigation links are functional', async ({ page }) => {
   await expect(page).toHaveURL(/#\/stage\//);
 });
 
-test('book cards link straight into the reader and all covers load', async ({ page }) => {
-  await expect(page.locator('.ph-book')).toHaveCount(10);
-  const broken = await page.locator('.ph-book img').evaluateAll(imgs => imgs.filter(i => (i as HTMLImageElement).naturalWidth === 0).length);
+test('book carousel shows every cover, navigates, and links into the reader', async ({ page }) => {
+  await expect(page.locator('.ph-car-item')).toHaveCount(10);
+  const broken = await page.locator('.ph-car-item img').evaluateAll(imgs => imgs.filter(i => (i as HTMLImageElement).naturalWidth === 0).length);
   expect(broken, 'every book cover must load').toBe(0);
-  await page.getByRole('link', { name: /Akhri buugga/ }).first().click();
+  // arrows move the focused book and the detail panel follows
+  const first = await page.locator('.ph-car-detail h3').textContent();
+  await page.getByRole('button', { name: 'Buugga xiga' }).click();
+  await expect(page.locator('.ph-car-detail h3')).not.toHaveText(first ?? '');
+  await page.getByRole('button', { name: 'Buuggii hore' }).click();
+  await expect(page.locator('.ph-car-detail h3')).toHaveText(first ?? '');
+  // the focused book opens the reader in one click
+  await page.getByRole('link', { name: /Akhri buugga/ }).click();
   await expect(page.getByText('Bogga 1 / 5').first()).toBeVisible();
 });
 

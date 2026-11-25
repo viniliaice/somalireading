@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
-  ArrowRight, BookOpen, Check, ChevronDown, CreditCard, Feather, GraduationCap,
+  ArrowRight, BookOpen, Check, ChevronDown, ChevronLeft, ChevronRight, CreditCard, Feather, GraduationCap,
   Headphones, Map, Menu, Mic, PenLine, Smartphone,
   Star, TrendingUp, UserPlus, X,
 } from 'lucide-react';
@@ -162,20 +162,7 @@ export function ParentsHome() {
         <p className="ph-eyebrow center light rv">MAKTABADDA SHEEKOYINKA</p>
         <h2 className="light rv">Sheekooyin Qurux Badan. Akhris Farxad Leh.</h2>
         <p className="ph-sub center light rv">Ku baro Af-Soomaaliga sheekooyin xiiso leh, sawirro qurux badan iyo erayo cusub.</p>
-        <div className="ph-book-grid">
-          {libraryBooks.map(b => (
-            <article key={b.id} className="ph-book rv">
-              <img src={b.cover} alt={b.coverAltSo} loading="lazy" decoding="async" />
-              <div className="ph-book-body">
-                <h3>{b.titleSo}</h3>
-                <p className="ph-book-level">{b.levelLabelSo}</p>
-                <p className="ph-book-desc">{b.descriptionSo}</p>
-                <p className="ph-book-meta">{b.pages.length} bog oo sheeko ah</p>
-                <a className="ph-link" href={`#/book/${b.id}`}>Akhri buugga <ArrowRight size={15} /></a>
-              </div>
-            </article>
-          ))}
-        </div>
+        <BookCarousel />
         <div className="center rv">
           <a className="ph-btn amber lg" href="#/books">Eeg Dhammaan Buugaagta <ArrowRight size={18} /></a>
         </div>
@@ -324,6 +311,72 @@ export function ParentsHome() {
       </footer>
 
       {intent && <IntentDialog intent={intent} onClose={() => setIntent(null)} />}
+    </div>
+  );
+}
+
+/* ── book carousel (coverflow) ──────────────────────────────────────── */
+
+function BookCarousel() {
+  const n = libraryBooks.length;
+  const [index, setIndex] = useState(0);
+  const drag = useRef<number | null>(null);
+  const go = (d: number) => setIndex(i => (i + d + n) % n);
+  const focus = libraryBooks[index];
+  return (
+    <div
+      className="ph-carousel rv"
+      role="group"
+      aria-roledescription="carousel"
+      aria-label="Sheekooyinka maktabadda"
+      tabIndex={0}
+      onKeyDown={e => {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+      }}
+    >
+      <button className="ph-car-arrow left" aria-label="Buuggii hore" onClick={() => go(-1)}><ChevronLeft size={22} /></button>
+      <div
+        className="ph-car-stage"
+        onPointerDown={e => { drag.current = e.clientX; }}
+        onPointerUp={e => {
+          if (drag.current === null) return;
+          const dx = e.clientX - drag.current;
+          drag.current = null;
+          if (dx > 45) go(-1);
+          else if (dx < -45) go(1);
+        }}
+      >
+        {libraryBooks.map((b, i) => {
+          let d = i - index;
+          if (d > n / 2) d -= n;
+          if (d < -n / 2) d += n;
+          const far = Math.abs(d) > 2;
+          const slot = Math.max(-2, Math.min(2, d));
+          return (
+            <button
+              key={b.id}
+              className={`ph-car-item ph-pos${slot < 0 ? 'n' : ''}${Math.abs(slot)}${far ? ' far' : ''}`}
+              aria-hidden={d !== 0}
+              tabIndex={d === 0 ? 0 : -1}
+              aria-label={`Fokus ${b.titleSo}`}
+              onClick={() => setIndex(i)}
+            >
+              <img src={b.cover} alt="" decoding="async" />
+              <span>{b.titleSo}</span>
+            </button>
+          );
+        })}
+      </div>
+      <button className="ph-car-arrow right" aria-label="Buugga xiga" onClick={() => go(1)}><ChevronRight size={22} /></button>
+      <div className="ph-car-detail" aria-live="polite">
+        <p className="ph-car-count">{index + 1} / {n}</p>
+        <h3>{focus.titleSo}</h3>
+        <p className="ph-book-level">{focus.levelLabelSo}</p>
+        <p className="ph-book-desc">{focus.descriptionSo}</p>
+        <p className="ph-book-meta">{focus.pages.length} bog oo sheeko ah</p>
+        <a className="ph-link" href={`#/book/${focus.id}`}>Akhri buugga <ArrowRight size={15} /></a>
+      </div>
     </div>
   );
 }
