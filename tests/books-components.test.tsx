@@ -43,7 +43,11 @@ describe('book reader', () => {
     render(<BookReader book={books[0]} progress={emptyBooksProgress()} onBack={() => {}} onProgress={onProgress} onOpenBooks={() => {}} />);
     fireEvent.click(screen.getByRole('button', { name: /Xiga/ })); // page 2 holds the book vocabulary
     fireEvent.click(screen.getByRole('button', { name: 'Erayga salaan' }));
+    // the meaning stays Somali-first; the English gloss sits behind one button next to Xir
+    expect(screen.queryByText('greeting')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: /Ingiriisi/ }));
     expect(screen.getByText('greeting')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Xir' })).toBeTruthy();
     expect(onProgress).toHaveBeenCalled();
   });
 
@@ -68,15 +72,20 @@ describe('book reader', () => {
 });
 
 describe('end-of-book quiz', () => {
-  it('grades objectively, saves attempts and allows retries', () => {
+  it('asks one question at a time, grades objectively and allows retries', () => {
     let progress = emptyBooksProgress();
     const onProgress = vi.fn((p: typeof progress) => { progress = p; });
     render(<BookReader book={books[0]} progress={progress} onBack={() => {}} onProgress={onProgress} onOpenBooks={() => {}} />);
     for (let i = 0; i < 4; i++) fireEvent.click(screen.getByRole('button', { name: /Xiga/ }));
     fireEvent.click(screen.getByRole('button', { name: /Tijaabada/ }));
-    // answer everything correctly
-    for (const q of objectiveQuestions(books[0])) {
+    // one question per screen — never a stacked, scrolling list
+    expect(screen.getAllByText(/Su.aasha 1 \/ 10/).length).toBe(1);
+    expect(document.querySelectorAll('.bk-q-card').length).toBe(1);
+    for (const [n, q] of objectiveQuestions(books[0]).entries()) {
+      expect(document.querySelectorAll('.bk-q-card').length).toBe(1);
+      expect(screen.getAllByText(new RegExp(`Su.aasha ${n + 1} / 10`)).length).toBe(1);
       fireEvent.click(screen.getByRole('button', { name: q.answer! }));
+      fireEvent.click(screen.getByRole('button', { name: /Xiga/ }));
     }
     fireEvent.click(screen.getByRole('button', { name: /Dhammaystir tijaabada/ }));
     expect(screen.getByRole('status').textContent).toContain('9 / 9');
@@ -90,6 +99,10 @@ describe('end-of-book quiz', () => {
     const onProgress = vi.fn();
     render(<BookReader book={books[0]} progress={progress} onBack={() => {}} onProgress={onProgress} onOpenBooks={() => {}} />);
     fireEvent.click(screen.getByRole('button', { name: /Tijaabada/ }));
+    // the output task is the last screen of the assessment
+    for (let i = 0; i < objectiveQuestions(books[0]).length; i++) {
+      fireEvent.click(screen.getByRole('button', { name: /Xiga/ }));
+    }
     fireEvent.change(screen.getByRole('textbox', { name: 'Jawaabta qoraalka' }), { target: { value: 'Magacaygu waa Ayaanle.' } });
     fireEvent.click(screen.getByRole('button', { name: /Waan sameeyay/ }));
     expect(onProgress).toHaveBeenCalled();

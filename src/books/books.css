@@ -42,8 +42,10 @@
 /* ── Reader ─────────────────────────────────────────────────────────── */
 /* Fit-to-viewport: the body never scrolls — the reading page just fits. */
 .bk-reader { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
-.bk-reader-bar { display: flex; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; gap: 8px; align-items: center; padding: 10px 12px; border-bottom: 3px solid var(--bk-ink); background: var(--bk-cream); flex-shrink: 0; }
-.bk-reader-bar::-webkit-scrollbar { display: none; }
+.bk-reader-bar { position: relative; display: flex; flex-wrap: nowrap; gap: 8px; align-items: center; padding: 10px 12px; border-bottom: 3px solid var(--bk-ink); background: var(--bk-cream); flex-shrink: 0; }
+.bk-tools { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+.bk-settings { display: none; flex: 0 0 auto; width: 40px; height: 34px; align-items: center; justify-content: center; border: 2.5px solid var(--bk-ink); border-radius: 10px; background: #fff; color: var(--bk-ink); cursor: pointer; }
+.bk-settings[aria-expanded="true"] { background: var(--bk-blue); color: #fff; }
 .bk-reader-bar .bk-title { font-size: 16px; font-weight: 800; margin-right: auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 auto; }
 .bk-toggle { border: 2.5px solid var(--bk-ink); background: #fff; border-radius: 999px; padding: 5px 12px; font-size: 12.5px; font-weight: 700; cursor: pointer; font-family: inherit; }
 .bk-toggle.on { background: var(--bk-blue); color: #fff; }
@@ -70,14 +72,31 @@
 
 .bk-popover { position: fixed; z-index: 40; left: 50%; transform: translateX(-50%); bottom: 92px; width: min(430px, calc(100vw - 28px)); background: #fff; border: 3px solid var(--bk-ink); border-radius: 14px; box-shadow: 6px 6px 0 rgba(23, 20, 18, 0.9); padding: 14px 16px; }
 .bk-popover h4 { margin: 0 0 2px; font-size: 21px; }
-.bk-popover .bk-en { margin: 0 0 8px; color: var(--bk-blue); font-weight: 700; }
+.bk-popover .bk-en { margin: 8px 0 0; color: var(--bk-blue); font-weight: 700; }
 .bk-popover .bk-note { margin: 6px 0 0; font-size: 13px; color: #55503f; }
 .bk-graphemes { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0; }
 .bk-graphemes span { border: 2px solid var(--bk-ink); border-radius: 7px; padding: 2px 8px; font-weight: 800; background: var(--bk-cream); font-size: 13px; }
 .bk-popover-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.bk-btn.secondary[aria-pressed="true"] { background: var(--bk-blue); color: #fff; }
 
 .bk-reader-nav { display: flex; gap: 10px; align-items: center; justify-content: center; padding: 4px 12px max(12px, env(safe-area-inset-bottom)); flex-shrink: 0; }
 .bk-nav-counter { font-weight: 800; min-width: 110px; text-align: center; }
+
+@media (max-width: 719px) {
+  /* Three things in the bar: back, title, and one settings button. */
+  .bk-tools { display: none; }
+  .bk-tools.open {
+    display: flex; flex-wrap: wrap; gap: 8px; position: absolute; top: calc(100% + 6px); right: 8px; z-index: 30;
+    background: var(--bk-cream); border: 3px solid var(--bk-ink); border-radius: 12px; padding: 10px;
+    box-shadow: 5px 5px 0 rgba(23, 20, 18, 0.85); max-width: calc(100vw - 16px);
+  }
+  .bk-settings { display: inline-flex; }
+  .bk-back-label { display: none; }
+  .bk-reader-bar .bk-title { font-size: 15px; }
+  .bk-quiz { padding: 10px 12px 14px; }
+  .bk-quiz-fine { display: none; }
+  .bk-quiz-nav .bk-btn { flex: 1 1 auto; }
+}
 
 @media (min-width: 860px) {
   .bk-stage { display: flex; align-items: stretch; gap: 14px; }
@@ -87,19 +106,40 @@
 }
 
 /* ── Quiz ───────────────────────────────────────────────────────────── */
-.bk-quiz { flex: 1; min-height: 0; overflow-y: auto; width: 100%; max-width: 760px; margin: 0 auto; padding: 16px 14px 26px; }
-.bk-quiz h2 { margin: 4px 0 14px; }
-.bk-q-card { border: 3px solid var(--bk-ink); border-radius: 14px; background: #fff; padding: 16px 18px; margin-bottom: 14px; }
-.bk-q-card .bk-kind { font-size: 11px; letter-spacing: 1.6px; font-weight: 800; text-transform: uppercase; color: var(--bk-blue); }
-.bk-q-card h3 { margin: 6px 0 10px; font-size: 17px; }
+/* One question per screen. The quiz is a column that fits the viewport; the
+   only overflow allowed is a safety scroll on very short screens. */
+.bk-quiz { flex: 1; min-height: 0; display: flex; flex-direction: column; width: 100%; max-width: 720px; margin: 0 auto; padding: 14px 14px 18px; overflow-y: auto; }
+.bk-quiz-head { flex: 0 0 auto; }
+.bk-quiz h2 { margin: 2px 0 10px; font-size: clamp(19px, 2.4vw, 25px); }
+.bk-quiz-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex: 0 0 auto; }
+.bk-quiz-step { font-size: 12.5px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--bk-blue); }
+.bk-quiz-track { height: 8px; border: 2.5px solid var(--bk-ink); border-radius: 999px; background: var(--bk-cream); overflow: hidden; margin: 7px 0 12px; flex: 0 0 auto; }
+.bk-quiz-track div { height: 100%; background: var(--bk-blue); transition: width .25s ease; }
+.bk-q-card { border: 3px solid var(--bk-ink); border-radius: 14px; background: #fff; padding: 15px 17px; margin-bottom: 12px; flex: 0 0 auto; }
+.bk-task { margin: 0 0 9px; font-size: 14px; line-height: 1.45; color: #55503f; }
+.bk-output-row { margin-top: 9px; display: flex; gap: 9px; flex-wrap: wrap; align-items: center; }
+.bk-output-done { font-size: 13px; font-weight: 700; color: #2f7d4f; }
+.bk-quiz-nav { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex: 0 0 auto; }
+.bk-quiz-fine { margin: 12px 0 0; font-size: 12px; line-height: 1.45; color: #6b6257; flex: 0 0 auto; }
+.bk-q-card .bk-kind, .bk-quiz-meta .bk-kind { font-size: 11px; letter-spacing: 1.6px; font-weight: 800; text-transform: uppercase; color: var(--bk-blue); }
+.bk-q-card h3 { margin: 0 0 10px; font-size: clamp(16px, 2.1vw, 19px); line-height: 1.35; }
 .bk-options { display: flex; flex-direction: column; gap: 8px; }
-.bk-option { text-align: left; border: 2.5px solid var(--bk-ink); border-radius: 10px; background: var(--bk-cream); padding: 9px 12px; font: inherit; cursor: pointer; }
+.bk-option { text-align: left; border: 2.5px solid var(--bk-ink); border-radius: 10px; background: var(--bk-cream); padding: 10px 13px; font: inherit; font-size: 15px; cursor: pointer; }
 .bk-option.chosen { background: var(--bk-blue); color: #fff; }
 .bk-option.correct { background: #2f7d4f; color: #fff; border-color: #1e5233; }
 .bk-option.wrong { background: var(--bk-red); color: #fff; }
 .bk-output-area { width: 100%; min-height: 96px; border: 2.5px solid var(--bk-ink); border-radius: 10px; padding: 10px 12px; font: inherit; resize: vertical; }
-.bk-result { border: 3px solid var(--bk-ink); border-radius: 14px; padding: 18px 20px; background: var(--bk-cream); margin-bottom: 16px; }
+.bk-result { border: 3px solid var(--bk-ink); border-radius: 14px; padding: 18px 20px; background: var(--bk-cream); margin-bottom: 16px; flex: 0 0 auto; }
 .bk-result h3 { margin: 0 0 8px; }
+
+/* Short screens (small phones, landscape): keep one question on screen. */
+@media (max-height: 640px) {
+  .bk-quiz { padding-top: 8px; padding-bottom: 10px; }
+  .bk-quiz h2 { font-size: 17px; margin-bottom: 8px; }
+  .bk-q-card { padding: 12px 14px; }
+  .bk-output-area { min-height: 64px; }
+  .bk-option { padding: 8px 12px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .bk-card, .bk-reader-progress div { transition: none; }

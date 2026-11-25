@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, ArrowRight, Award, Headphones, Type } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Award, Headphones, Languages, SlidersHorizontal, Type } from 'lucide-react';
 import { tokenize } from '../curriculum';
 import { isApproved } from '../audio';
 import type { StoryBook, BookWord } from './types';
@@ -48,6 +48,10 @@ export function BookReader({ book, progress, onBack, onProgress, onOpenBooks }: 
   const [hlSentence, setHlSentence] = useState<number | null>(null);
   const [rate, setRate] = useState(1);
   const [audioNote, setAudioNote] = useState('');
+  /** Extra reading controls stay behind one button on phones — the bar holds three things. */
+  const [toolsOpen, setToolsOpen] = useState(false);
+  /** The English meaning is shown on request, not by default. */
+  const [showEn, setShowEn] = useState(false);
 
   useEffect(() => {
     onProgress(markPageRead(progress, book.id, view.kind === 'page' ? view.n : 5));
@@ -78,6 +82,7 @@ export function BookReader({ book, progress, onBack, onProgress, onOpenBooks }: 
   const mastery = bookMastery(progress, book);
 
   const pickWord = (token: string, word?: BookWord) => {
+    setShowEn(false);
     setPicked({ token, word });
     if (word) onProgress(markWordsSeen(progress, book.id, [word.id]));
   };
@@ -88,16 +93,30 @@ export function BookReader({ book, progress, onBack, onProgress, onOpenBooks }: 
   return (
     <div className="bk-app bk-reader">
       <div className="bk-reader-bar">
-        <button className="bk-btn secondary small" onClick={onBack}><ArrowLeft size={15} /> Buugaagta</button>
+        <button className="bk-btn secondary small bk-back" onClick={onBack} aria-label="Buugaagta">
+          <ArrowLeft size={15} /> <span className="bk-back-label">Buugaagta</span>
+        </button>
         <span className="bk-title">{book.titleSo}</span>
-        <button className={`bk-toggle ${translation ? 'on' : ''}`} onClick={() => setTranslation(!translation)} aria-pressed={translation}>Turjumaad</button>
-        <button className={`bk-toggle ${bigText ? 'on' : ''}`} onClick={() => setBigText(!bigText)} aria-pressed={bigText}><Type size={13} /> Qoraal weyn</button>
-        <button className={`bk-toggle ${hlSentence !== null ? 'on' : ''}`} onClick={() => setHlSentence(hlSentence === null ? 0 : null)} aria-pressed={hlSentence !== null}>Jumlad xigta</button>
-        <select className="bk-toggle" value={rate} onChange={e => setRate(Number(e.target.value))} aria-label="Xawaaraha dhagaysiga">
-          <option value={0.75}>Tartiib (0.75×)</option>
-          <option value={1}>Caadi (1×)</option>
-          <option value={1.25}>Dhakhso (1.25×)</option>
-        </select>
+        <div className={`bk-tools ${toolsOpen ? 'open' : ''}`}>
+          <button className={`bk-toggle ${translation ? 'on' : ''}`} onClick={() => setTranslation(!translation)} aria-pressed={translation}>Turjumaad</button>
+          <button className={`bk-toggle ${bigText ? 'on' : ''}`} onClick={() => setBigText(!bigText)} aria-pressed={bigText}><Type size={13} /> Qoraal weyn</button>
+          <button className={`bk-toggle ${hlSentence !== null ? 'on' : ''}`} onClick={() => setHlSentence(hlSentence === null ? 0 : null)} aria-pressed={hlSentence !== null}>Jumlad xigta</button>
+          <select className="bk-toggle" value={rate} onChange={e => setRate(Number(e.target.value))} aria-label="Xawaaraha dhagaysiga">
+            <option value={0.75}>Tartiib (0.75×)</option>
+            <option value={1}>Caadi (1×)</option>
+            <option value={1.25}>Dhakhso (1.25×)</option>
+          </select>
+        </div>
+        <button
+          type="button"
+          className="bk-settings"
+          onClick={() => setToolsOpen(o => !o)}
+          aria-expanded={toolsOpen}
+          aria-label="Dejinta akhriska"
+          title="Dejinta akhriska"
+        >
+          <SlidersHorizontal size={17} />
+        </button>
       </div>
       <div className="bk-reader-progress"><div style={{ width: `${((view.kind === 'page' ? view.n : 5) / 5) * 100}%` }} /></div>
 
@@ -173,10 +192,10 @@ export function BookReader({ book, progress, onBack, onProgress, onOpenBooks }: 
           <h4>{picked.token.replace(PUNCT, '')}</h4>
           {picked.word ? (
             <>
-              <p className="bk-en">{picked.word.en}</p>
               <div className="bk-graphemes" aria-label="Qaybaha dhawaaqa">
                 {tokenize(picked.token.replace(PUNCT, '')).map((g, i) => <span key={i}>{g}</span>)}
               </div>
+              {showEn && <p className="bk-en" lang="en">{picked.word.en}</p>}
               {picked.word.noteSo && <p className="bk-note">{picked.word.noteSo}</p>}
             </>
           ) : (
@@ -185,7 +204,11 @@ export function BookReader({ book, progress, onBack, onProgress, onOpenBooks }: 
               <div className="bk-graphemes" aria-label="Qaybaha dhawaaqa">
                 {tokenize(picked.token.replace(PUNCT, '')).map((g, i) => <span key={i}>{g}</span>)}
               </div>
-              <p className="bk-note">Macnaha eraygan weli lama darin. Waydii macallinkaaga.</p>
+              <p className="bk-note">
+                {showEn
+                  ? 'Turjumaadda Ingiriisiga eraygan weli lama hayo — waydii macallinkaaga.'
+                  : 'Macnaha eraygan weli lama darin. Waydii macallinkaaga.'}
+              </p>
             </>
           )}
           <div className="bk-popover-row">
@@ -197,6 +220,14 @@ export function BookReader({ book, progress, onBack, onProgress, onOpenBooks }: 
               }}
             >
               <Headphones size={14} /> Dhagayso
+            </button>
+            <button
+              type="button"
+              className={`bk-btn small secondary ${showEn ? 'on' : ''}`}
+              onClick={() => setShowEn(v => !v)}
+              aria-pressed={showEn}
+            >
+              <Languages size={14} /> Ingiriisi
             </button>
             <button className="bk-btn small" onClick={() => setPicked(null)}>Xir</button>
           </div>
