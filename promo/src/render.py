@@ -67,9 +67,11 @@ def pill(draw, xy, label, fill, fg=WHITE, size=26):
 
 # True screenshots from the running app, trimmed to remove sidebar review/placeholder notices.
 assets={
- 'hero':load('home-hero-desktop'), 'hero_mobile':load('home-hero-mobile'),
- 'plans':load('home-pricing'),
- 'books_home':load('home-books-section'), 'reader':load('reader-page'),
+ 'hero':load('home-hero-desktop'),
+ 'mobile_home':load('mobile-home').crop((0,130,780,1688)), 'mobile_reader':load('mobile-reader'),
+ 'mobile_phonics':load('mobile-trace'), 'mobile_lesson':load('mobile-lesson-use'),
+ 'mobile_culture':load('mobile-culture'),
+ 'plans':load('home-pricing'), 'reader':load('reader-page'),
  'phonics':load('phonics').crop((480,0,2560,1550)), 'trace':load('trace').crop((480,0,2560,1540)),
  'lesson':load('lesson-use').crop((480,0,2560,1540)), 'culture':load('culture').crop((480,0,2560,1900)),
  'logo':load('logo-lockup')
@@ -103,7 +105,7 @@ def scene_frame(kind, local, dur, vertical=False):
             letters=['A','AF','AF-SOOMAALI']; text=letters[min(2,int(local/1.55))]
             f=font(150 if len(text)<3 else 76,True); d.text((68,300),text,font=f,fill=NAVY)
             d.text((72,515),'Afkaaga hooyo waa hantidaada.',font=font(35,True),fill=BLUE)
-            rounded_card(im,assets['hero_mobile'],(55,720,970,1080),False,36)
+            rounded_card(im,assets['mobile_home'],(330,720,420,910),False,36)
             d=ImageDraw.Draw(im)
             d.text((70,1840),'BARO  ·  AKHRI  ·  HADAL',font=font(27,True),fill=NAVY)
         else:
@@ -119,7 +121,7 @@ def scene_frame(kind, local, dur, vertical=False):
             rounded_card(im,assets['logo'],(90,150,900,175),False,18,False)
             d.text((80,430),'SOMALIREADING',font=font(67,True),fill=NAVY)
             d.multiline_text((80,555),'Baro Af-Soomaali.\nAkhri. Hadal. Faham.',font=font(55,True),fill=BLUE,spacing=18)
-            rounded_card(im,assets['hero'],(50,910,980,615),False,34)
+            rounded_card(im,assets['mobile_home'],(330,850,420,910),False,36)
             d=ImageDraw.Draw(im);d.text((80,1760),'AF-SOOMAALI · AKHRIS · DHAQAN',font=font(27,True),fill=NAVY)
         else:
             rounded_card(im,assets['logo'],(100,80,600,110),False,15,False)
@@ -129,15 +131,19 @@ def scene_frame(kind, local, dur, vertical=False):
     elif kind=='skills':
         labs=['DHAGAYSI','HADAL','AKHRIS','QORIS']; imgs=['phonics','lesson','reader','trace']
         if vertical:
-            d.text((65,100),'AF-SOOMAALI',font=font(28,True),fill=BLUE)
-            d.text((65,170),'Afar xirfadood.',font=font(52,True),fill=NAVY)
-            for i,(lab,key) in enumerate(zip(labs,imgs)):
-                y=310+i*370
-                col=[BLUE,GREEN,GOLD,'#e2703a'][i]
-                d.rounded_rectangle((65,y,1015,y+335),32,fill=(255,255,255,240),outline=col,width=4)
-                rounded_card(im,assets[key],(82,y+18,390,285),False,20,False)
-                d=ImageDraw.Draw(im);d.text((505,y+125),lab,font=font(39,True),fill=col)
-            d=ImageDraw.Draw(im);d.text((65,1845),'DHAGAYSO · KU HADAL · AKHRI · QOR',font=font(22,True),fill=NAVY)
+            d.text((65,85),'AF-SOOMAALI',font=font(28,True),fill=BLUE)
+            d.text((65,145),'Afar xirfadood.',font=font(52,True),fill=NAVY)
+            colors=[BLUE,GREEN,GOLD,'#e2703a']
+            x=65
+            for lab,col in zip(labs,colors):
+                pw,_=pill(d,(x,235),lab,col,fg=NAVY if col==GOLD else WHITE,size=21)
+                x+=pw+12
+            pill(d,(75,335),'AKHRIS',BLUE,size=22)
+            pill(d,(570,335),'CASHAR',GREEN,size=22)
+            rounded_card(im,assets['mobile_reader'],(55,385,455,985),False,36)
+            rounded_card(im,assets['mobile_lesson'],(570,385,455,985),False,36)
+            d=ImageDraw.Draw(im)
+            d.multiline_text((65,1445),'Dhagayso · Hadal · Akhri · Qor.\nKobci aqoontaada Af-Soomaaliga.',font=font(31,True),fill=NAVY,spacing=14)
         else:
             d.text((95,90),'HAL MADAL. AFAR XIRFADOOD.',font=font(26,True),fill=BLUE)
             d.text((95,155),'Dhagayso. Hadal. Akhri. Qor.',font=font(54,True),fill=NAVY)
@@ -176,9 +182,9 @@ def scene_frame(kind, local, dur, vertical=False):
             d.text((65,130),'AFKEENNA.',font=font(44,True),fill=BLUE)
             d.text((65,210),'DHAQANKEENNA.',font=font(44,True),fill=NAVY)
             d.text((65,290),'SUUGAANTEENNA.',font=font(44,True),fill=GREEN)
-            rounded_card(im,assets['culture'],(50,420,980,970),False,36)
-            d=ImageDraw.Draw(im);d.text((70,1450),'Baro Af-Soomaali,',font=font(38,True),fill=NAVY)
-            d.text((70,1510),'dhaqan iyo suugaan.',font=font(38,True),fill=GREEN)
+            rounded_card(im,assets['mobile_culture'],(290,420,500,1080),False,36)
+            d=ImageDraw.Draw(im);d.text((70,1540),'Baro Af-Soomaali,',font=font(38,True),fill=NAVY)
+            d.text((70,1600),'dhaqan iyo suugaan.',font=font(38,True),fill=GREEN)
             d.text((70,1790),'ABWAAN HADRAAWI · 1943–2022',font=font(24,True),fill=BLUE)
         else:
             d.text((95,140),'AFKEENNA.',font=font(66,True),fill=BLUE)
@@ -225,7 +231,7 @@ def scene_frame(kind, local, dur, vertical=False):
             d.text((68,780),'Safarkaaga maanta bilow!',font=font(36,True),fill=NAVY)
             d.rounded_rectangle((65,930,1015,1070),28,fill=BLUE)
             d.text((92,970),'https://somalireading.vercel.app/',font=font(30,True),fill=WHITE)
-            rounded_card(im,assets['hero'],(140,1190,800,500),False,34)
+            rounded_card(im,assets['mobile_home'],(360,1120,360,780),False,36)
             d=ImageDraw.Draw(im)
         else:
             rounded_card(im,assets['logo'],(100,90,620,110),False,15,False)

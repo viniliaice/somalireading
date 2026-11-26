@@ -33,7 +33,7 @@ In this workspace the ffmpeg executable is the `imageio-ffmpeg` binary reference
 - `src/music.py` is the original synthesized instrumental composition; it uses no samples.
 - `src/assemble.py` sets voice/music timing and mix levels. When Somali VO is recorded, replace the `audio/vo-temp/en-*.mp3` inputs and adjust timing/mix as needed.
 - `src/poster.py` produces the stills from the CTA composition.
-- `assets/site/` contains locally captured screenshots of implemented screens, `assets/fonts/` contains the bundled DejaVu Sans family used by the renderer, and `assets/books/` / `books.json` preserve local storybook data for further editing.
+- `assets/site/` contains locally captured screenshots of implemented screens. The 9:16 edit uses the responsive mobile captures for website views; 16:9 uses desktop captures. The story gallery uses separate local book-art covers. `assets/fonts/` contains the bundled DejaVu Sans family used by the renderer, and `assets/books/` / `books.json` preserve local storybook data for further editing.
 - `capture*.mjs` documents the Playwright capture steps. It captures only this repository's running app; it does not scrape the deployed site.
 
 The screenshots are genuine app screens, not mockups. Review/placeholder footers are cropped from relevant images before compositing; no progression, account creation, payment, testimonials or outcomes are simulated. Pricing is shown exactly as **Website Access $5.99** and **Website Access + Lessons $25**, without billing cadence or discount language. The on-screen address is `https://somalireading.vercel.app/`.
