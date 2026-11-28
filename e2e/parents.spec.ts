@@ -61,8 +61,10 @@ test('checkout and account entry points open honestly without simulating payment
   await expect(page.getByRole('dialog')).toContainText('$5.99');
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Create Account' }).click();
-  await expect(page.getByRole('dialog')).toContainText('akoon-yaraynta weli lama xidhin');
+  // Account entry points go to the real Supabase-backed auth pages.
+  await page.getByRole('link', { name: 'Create Account' }).click();
+  await expect(page).toHaveURL(/#\/signup/);
+  await expect(page.getByRole('heading', { name: 'Abuur akoon' })).toBeVisible();
 });
 
 test('faq accordion works', async ({ page }) => {

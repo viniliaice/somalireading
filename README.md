@@ -56,6 +56,41 @@ npm run review:school    # regenerate school curriculum + audio review CSVs
 
 The browser tests use Chromium and require its Linux libraries (including NSS and NSPR). In a typical Debian environment install `libnss3` and `libnspr4` using the system package manager. Desktop and mobile screenshots are saved to `screenshots/`; baseline screenshots are in `screenshots/baseline/`.
 
+## Authentication (Supabase)
+
+Sign in (`#/signin`) and sign up (`#/signup`) are backed by one Supabase project that serves
+both websites: **somalireading.vercel.app** and **jollyphonetic.vercel.app**.
+
+```bash
+cp .env.example .env     # then fill in the project URL and publishable key
+```
+
+The client reads `VITE_SUPABASE_URL` / `VITE_SUPABASE_PUBLISHABLE_KEY` and falls back to the
+`NEXT_PUBLIC_*` names, so the same env file works in this Vite app and in the jollyphonetic
+Next.js app. On Vercel both variables (all four names) are set for both projects; redeploy
+after adding them anywhere new.
+
+Supabase dashboard → **Authentication → URL Configuration** (one-time setup):
+
+- **Site URL:** `https://somalireading.vercel.app`
+- **Redirect URLs** must include both sites (each app sends its own origin as
+  `emailRedirectTo`): `https://somalireading.vercel.app/**`, `https://jollyphonetic.vercel.app/**`,
+  plus `http://localhost:5173/**` for local development.
+
+How the flows behave:
+
+- **Sign up** creates the account with the learner's name in `user_metadata.full_name`. If
+  email confirmation is enabled, the page shows a bilingual "check your email" panel with a
+  resend button; the confirmation link returns the visitor to the site they signed up on, and
+  supabase-js exchanges the code automatically on arrival.
+- **Sign in** redirects back to the page that launched it (`?next=` hash param), the marketing
+  site header shows the signed-in learner, and the school app sidebar offers sign in / sign out.
+- **Forgot password** on the sign-in page sends a recovery email; the recovery link signs the
+  learner back in (default Supabase behavior).
+
+The publishable key is public by design — never place a secret key in `NEXT_PUBLIC_*`/`VITE_*` variables.
+
+
 ## Curriculum and quality review
 
 `src/curriculum.ts` contains the 26 base units, examples, IPA references, guidance, four vowel-length pairs and eight Stage 1 units. Digraphs and doubled vowels are single word-building tiles. The glottal-stop sign is deferred for teacher review. English glosses are supporting information.

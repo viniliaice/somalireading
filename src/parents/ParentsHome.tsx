@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import {
   ArrowRight, BookOpen, Check, ChevronDown, ChevronLeft, ChevronRight, CreditCard, Feather, GraduationCap,
   Headphones, Map, Menu, Mic, PenLine, Smartphone,
-  Star, TrendingUp, UserPlus, X,
+  Star, TrendingUp, User, UserPlus, X,
 } from 'lucide-react';
 import { books as libraryBooks } from '../books/index';
 import { stages, schoolTotals } from '../curriculum/index';
 import { BILLING_PERIOD, CURRENCY, PLANS, formatPrice, type Plan } from './pricing';
+import { useAuth } from '../auth/AuthContext';
 import './parents.css';
 
 /* ── helpers ─────────────────────────────────────────────────────────── */
@@ -43,8 +44,13 @@ export function ParentsHome() {
   useReveal();
   const [menuOpen, setMenuOpen] = useState(false);
   const [intent, setIntent] = useState<Intent | null>(null);
+  const { user, loading: authLoading, signOut } = useAuth();
   const totals = schoolTotals();
   const covers = [libraryBooks[0], libraryBooks[4], libraryBooks[9]].filter(Boolean);
+  const displayName = user
+    ? (typeof user.user_metadata?.full_name === 'string' && user.user_metadata.full_name.trim()
+        || user.email?.split('@')[0] || 'Arday')
+    : '';
 
   const navLink = (label: string, href?: string, onClick?: () => void) => (
     <a
@@ -75,8 +81,17 @@ export function ParentsHome() {
           {navLink('Pricing', '#/', () => scrollToId('qiimaha'))}
         </nav>
         <div className="ph-nav-cta">
-          <button className="ph-btn ghost sm" onClick={() => setIntent('login')}>Log in</button>
-          <button className="ph-btn blue sm" onClick={() => setIntent('register')}>Create Account</button>
+          {!authLoading && user ? (
+            <>
+              <span className="ph-userchip" title={user.email ?? ''}><User size={15} /> {displayName}</span>
+              <button className="ph-btn ghost sm" onClick={() => { void signOut(); }}>Ka bax</button>
+            </>
+          ) : (
+            <>
+              <a className="ph-btn ghost sm" href="#/signin">Log in</a>
+              <a className="ph-btn blue sm" href="#/signup">Create Account</a>
+            </>
+          )}
         </div>
         <button className="ph-burger" aria-label={menuOpen ? 'Xir liiska' : 'Fur liiska'} aria-expanded={menuOpen} onClick={() => setMenuOpen(o => !o)}>
           {menuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -222,7 +237,7 @@ export function ParentsHome() {
         <h2 className="rv">Saddex tallaabo oo fudud</h2>
         <div className="ph-steps">
           {[
-            { icon: UserPlus, n: '1', t: 'Isdiiwaangeli', en: 'Create your SomaliReading account.', onClick: () => setIntent('register') },
+            { icon: UserPlus, n: '1', t: 'Isdiiwaangeli', en: 'Create your SomaliReading account.', onClick: () => { window.location.hash = '#/signup'; } },
             { icon: CreditCard, n: '2', t: 'Dooro Qorshahaaga', en: 'Choose Website Access or Website Access + Lessons.', onClick: () => scrollToId('qiimaha') },
             { icon: BookOpen, n: '3', t: 'Bilow Barashada', en: 'Explore the books, lessons and learning activities available in your plan.', href: '#/dugsi' },
           ].map(s => (

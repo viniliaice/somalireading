@@ -3,7 +3,7 @@
  * Hash routing: the preserved Stage 1 phonics experience lives at `#/xaraf`.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ArrowRight, Award, BookOpen, Feather, GraduationCap, Home, Menu, Sparkles, X } from 'lucide-react';
+import { ArrowRight, Award, BookOpen, Feather, GraduationCap, Home, LogIn, LogOut, Menu, Sparkles, X } from 'lucide-react';
 import { schoolTotals, stages, lessonById } from '../curriculum/index';
 import { pathways, diagnosticItems, scoreDiagnostic } from '../curriculum/pathways';
 import {
@@ -19,6 +19,7 @@ import { primeActivityCache } from './activities';
 import { books as libraryBooks, bookById } from '../books/index';
 import type { StoryBook } from '../books/types';
 import { loadBooksProgress, saveBooksProgress, type BooksProgress } from '../books/progress';
+import { useAuth } from '../auth/AuthContext';
 import { Bookshelf } from '../books/Bookshelf';
 import { BookReader } from '../books/BookReader';
 import { BookImage } from '../books/BookImage';
@@ -53,6 +54,7 @@ export function SchoolApp() {
   const [progress, setProgress] = useState<SchoolProgress>(loadSchoolProgress);
   const [bookProgress, setBookProgress] = useState<BooksProgress>(loadBooksProgress);
   const [navOpen, setNavOpen] = useState(false);
+  const { user, loading: authLoading, signOut } = useAuth();
 
   useEffect(() => {
     const handler = () => setRoute(parseHash());
@@ -143,6 +145,21 @@ export function SchoolApp() {
             <button onClick={() => openLegacy('#/xaraf')}><Feather size={18} /> Xarfaha (Heerka 1)</button>
             <button onClick={() => openLegacy('#/xaraf?view=culture')}><Feather size={18} /> Dhaqan iyo Suugaan</button>
           </nav>
+          {!authLoading && (
+            <div className="sc-auth">
+              {user ? (
+                <>
+                  <span className="sc-auth-mail" title={user.email ?? ''}>{user.email}</span>
+                  <button type="button" className="sc-auth-btn" onClick={() => { void signOut(); }}><LogOut size={15} /> Ka bax · Sign out</button>
+                </>
+              ) : (
+                <>
+                  <span className="sc-auth-hint">Horumarkaaga akoon ku kaydi.</span>
+                  <a className="sc-auth-btn" href={`#/signin?next=${encodeURIComponent(window.location.hash || '#/dugsi')}`}><LogIn size={15} /> Soo gal · Sign in</a>
+                </>
+              )}
+            </div>
+          )}
           <div style={{ marginTop: 'auto' }} className="sc-note">
             {progress.path ? `Jidkaaga: ${progress.path}` : 'Jid weli lama dooran'}
             <br />Wax yar maalin kasta!
